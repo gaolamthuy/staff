@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>In tem</title>
+    <style>
+      /* General Page Styles */
+      body {
+        background-color: #121212;
+        color: white;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      /* Main Container */
+      .container {
+        width: 90%;
+        max-width: 600px;
+        padding: 20px;
+        background: #1e1e1e;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 26px;
+        margin-bottom: 15px;
+        font-weight: bold;
+      }
+
+      /* Category Boxes */
+      .category {
+        background: #2a2a2a;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 10px;
+      }
+
+      .category h2 {
+        font-size: 20px;
+        margin-bottom: 12px;
+      }
+
+      /* Button Container */
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      /* 2x2 Grid for Nàng Hoa */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      /* Button Styles */
+      .button {
+        flex: 1;
+        min-width: 140px;
+        text-align: center;
+        padding: 15px;
+        background: #8b5cf6;
+        color: white;
+        font-size: 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: 0.3s;
+        font-weight: bold;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .button:hover {
+        background: #a78bfa;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Gray Buttons */
+      .button.gray {
+        background: #4a4a4a;
+      }
+
+      .button.gray:hover {
+        background: #616161;
+      }
+
+      /* Mobile-friendly */
+      @media (max-width: 500px) {
+        .grid {
+          grid-template-columns: repeat(1, 1fr); /* Stack on small screens */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>In tem</h1>
+
+      <div class="category">
+        <h2>ST25</h2>
+        <div class="buttons">
+          <a
+            href="https://n8n.gaolamthuy.vn/webhook/labelprint?type=label&kiotvietId=3749581&quantity=5"
+            class="button"
+            target="_blank"
+            >ST25 - 5kg</a
+          >
+          <a
+            href="https://n8n.gaolamthuy.vn/webhook/labelprint?type=label&kiotvietId=3749581&quantity=10"
+            class="button"
+            target="_blank"
+            >ST25 - 10kg</a
+          >
+        </div>
+      </div>
+
+      <div class="category">
+        <h2>Nàng Hoa</h2>
+        <div class="grid">
+          <a
+            href="https://n8n.gaolamthuy.vn/webhook/labelprint?type=label&kiotvietId=1004971377&quantity=5"
+            class="button"
+            target="_blank"
+            >Nàng Hoa mới tinh - 5kg</a
+          >
+          <a
+            href="https://n8n.gaolamthuy.vn/webhook/labelprint?type=label&kiotvietId=1004971377&quantity=10"
+            class="button"
+            target="_blank"
+            >Nàng Hoa mới tinh - 10kg</a
+          >
+          <a
+            href="https://n8n.gaolamthuy.vn/webhook/labelprint?type=label&kiotvietId=3749576&quantity=5"
+            class="button gray"
+            target="_blank"
+            >Nàng Hoa tiêu chuẩn - 5kg</a
+          >
+          <a
+            href="https://n8n.gaolamthuy.vn/webhook/labelprint?type=label&kiotvietId=3749576&quantity=10"
+            class="button gray"
+            target="_blank"
+            >Nàng Hoa tiêu chuẩn - 10kg</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
