@@ -48,6 +48,7 @@
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
       }
 
+      /* Border-Only Buttons */
       .btn-custom {
         padding: 15px;
         font-size: 18px;
@@ -55,29 +56,27 @@
         border-radius: 12px;
         transition: all 0.3s ease-in-out;
         width: 100%;
+        border: 2px solid #ff6347;
+        color: #ff6347;
+        background: transparent;
       }
 
       .btn-custom:hover {
+        background-color: #ff6347;
+        color: white;
         transform: scale(1.05);
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
       }
 
-      .btn-primary {
-        background-color: #ff6347;
-        border: none;
-      }
-
-      .btn-primary:hover {
-        background-color: #ff4500;
-      }
-
+      /* Secondary Button */
       .btn-secondary {
-        background-color: #888;
-        border: none;
+        border: 2px solid #888;
+        color: #888;
       }
 
       .btn-secondary:hover {
-        background-color: #666;
+        background-color: #888;
+        color: white;
       }
     </style>
   </head>
@@ -92,7 +91,7 @@
           <div class="col-6">
             <a
               href="https://n8n.gaolamthuy.vn/webhook/docprint?type=label&kiotvietId=3749581&quantity=5"
-              class="btn btn-primary btn-custom"
+              class="btn btn-custom"
               target="_blank"
               >ST25 - 5kg</a
             >
@@ -100,7 +99,7 @@
           <div class="col-6">
             <a
               href="https://n8n.gaolamthuy.vn/webhook/docprint?type=label&kiotvietId=3749581&quantity=10"
-              class="btn btn-primary btn-custom"
+              class="btn btn-custom"
               target="_blank"
               >ST25 - 10kg</a
             >
@@ -114,7 +113,7 @@
           <div class="col-6">
             <a
               href="https://n8n.gaolamthuy.vn/webhook/docprint?type=label&kiotvietId=1004971377&quantity=5"
-              class="btn btn-primary btn-custom"
+              class="btn btn-custom"
               target="_blank"
               >Nàng Hoa mới tinh - 5kg</a
             >
@@ -122,7 +121,7 @@
           <div class="col-6">
             <a
               href="https://n8n.gaolamthuy.vn/webhook/docprint?type=label&kiotvietId=1004971377&quantity=10"
-              class="btn btn-primary btn-custom"
+              class="btn btn-custom"
               target="_blank"
               >Nàng Hoa mới tinh - 10kg</a
             >
@@ -130,7 +129,7 @@
           <div class="col-6">
             <a
               href="https://n8n.gaolamthuy.vn/webhook/docprint?type=label&kiotvietId=3749576&quantity=5"
-              class="btn btn-secondary btn-custom"
+              class="btn btn-secondary"
               target="_blank"
               >Nàng Hoa tiêu chuẩn - 5kg</a
             >
@@ -138,7 +137,7 @@
           <div class="col-6">
             <a
               href="https://n8n.gaolamthuy.vn/webhook/docprint?type=label&kiotvietId=3749576&quantity=10"
-              class="btn btn-secondary btn-custom"
+              class="btn btn-secondary"
               target="_blank"
               >Nàng Hoa tiêu chuẩn - 10kg</a
             >
@@ -147,7 +146,7 @@
       </div>
     </div>
 
-    <!-- Bootstrap 5 JavaScript (optional, only needed if you plan to use JS features like modals) -->
+    <!-- Bootstrap 5 JavaScript (optional) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
