@@ -36,9 +36,19 @@ async function getProductsData(): Promise<{
       throw new Error("Invalid API response structure");
     }
 
-    const riceProducts = apiData.products.filter((product: Product) =>
-      riceCategories.includes(product.categoryName)
+    // Log để debug filter
+    console.log("Total products from API:", apiData.products.length);
+    console.log(
+      "Products with unit 'kg':",
+      apiData.products.filter((p) => p.unit === "kg").length
     );
+
+    const riceProducts = apiData.products.filter(
+      (product: Product) =>
+        riceCategories.includes(product.categoryName) && product.unit === "kg"
+    );
+
+    console.log("Filtered rice products with unit 'kg':", riceProducts.length);
 
     // Tạo danh sách categories từ sản phẩm gạo
     const availableCategories: ProductCategory[] = riceProducts.reduce(

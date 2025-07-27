@@ -35,6 +35,8 @@ export interface Product {
   categoryName: string;
   isActive: boolean;
   allowsSale: boolean;
+  unit?: string; // Unit of measurement (kg, g, etc.)
+  weight?: number; // Weight in grams
   glt: GltData;
   images?: string[]; // Array of image URLs
   [key: string]: any; // Allow additional properties
