@@ -11,6 +11,7 @@ import { AuthCheck } from "@/components/AuthCheck";
 
 /**
  * Lấy dữ liệu sản phẩm từ API
+ * Sử dụng dynamic import để tránh lỗi build với static export
  */
 async function getProductsData(): Promise<{
   products: Product[];
@@ -18,6 +19,8 @@ async function getProductsData(): Promise<{
   error?: string;
 }> {
   try {
+    // Sử dụng dynamic import để tránh lỗi build
+    const { fetchProductsData } = await import("@/lib/api");
     const apiData = await fetchProductsData();
 
     // Lọc sản phẩm gạo từ danh sách sản phẩm

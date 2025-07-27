@@ -20,6 +20,10 @@
 # production
 /build
 
+# Cloudflare Pages cache
+.cache/
+*.pack
+
 # misc
 .DS_Store
 *.pem

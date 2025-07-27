@@ -1,0 +1,21 @@
+name = "gaolamthuy-staff"
+compatibility_date = "2024-01-01"
+
+[build]
+command = "npm run build"
+output_directory = ".next"
+
+[build.upload]
+format = "service-worker"
+
+[env.production]
+name = "gaolamthuy-staff"
+
+# Cấu hình để tránh file quá lớn
+[env.production.vars]
+NODE_ENV = "production"
+
+# Tối ưu hóa cho static export
+[env.production.build]
+command = "npm run build"
+output_directory = "out" 
