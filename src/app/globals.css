@@ -1,0 +1,462 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Suppress Ant Design warnings */
+.ant-message {
+  z-index: 1010;
+}
+
+/* ===== DARK MODE STYLES ===== */
+body.dark-mode {
+  background-color: #0a0a0a !important;
+  color: #e6e6e6 !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Header Dark Mode */
+body.dark-mode header {
+  background-color: #1a1a1a !important;
+  border-bottom: 1px solid #333 !important;
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .header-logo {
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .header-nav a {
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .header-nav a:hover {
+  color: #1890ff !important;
+}
+
+/* Product Cards Dark Mode */
+body.dark-mode .product-card {
+  background-color: #1a1a1a !important;
+  border-color: #333 !important;
+  color: #e6e6e6 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-mode .product-card:hover {
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1) !important;
+}
+
+body.dark-mode .product-card h3 {
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .product-card p {
+  color: #b0b0b0 !important;
+}
+
+body.dark-mode .product-card .product-price {
+  color: #52c41a !important;
+}
+
+body.dark-mode .product-card .product-category {
+  background-color: #2a2a2a !important;
+  color: #b0b0b0 !important;
+  border: 1px solid #444 !important;
+}
+
+/* Product Image Container Dark Mode */
+body.dark-mode .product-card .product-image-container {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
+}
+
+/* Category Filter Dark Mode */
+body.dark-mode .category-filter {
+  background-color: #1a1a1a !important;
+  border-color: #333 !important;
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .filter-title {
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .category-button {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .category-button:hover {
+  background-color: #3a3a3a !important;
+  border-color: #555 !important;
+}
+
+body.dark-mode .category-button.active {
+  background-color: #1890ff !important;
+  color: white !important;
+  border-color: #1890ff !important;
+}
+
+body.dark-mode .category-button.favorite {
+  background-color: #ff4d4f !important;
+  color: white !important;
+  border-color: #ff4d4f !important;
+}
+
+body.dark-mode .category-button.favorite:hover {
+  background-color: #ff7875 !important;
+  border-color: #ff7875 !important;
+}
+
+body.dark-mode .product-count {
+  background-color: #444 !important;
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .category-color-indicator {
+  border-color: #666 !important;
+}
+
+body.dark-mode .selected-category-info {
+  background-color: #1a1a1a !important;
+  border-color: #333 !important;
+  color: #b0b0b0 !important;
+}
+
+/* Ant Design Components Dark Mode */
+body.dark-mode .ant-btn {
+  border-color: #444 !important;
+  background-color: #2a2a2a !important;
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .ant-btn-primary {
+  background-color: #1890ff !important;
+  border-color: #1890ff !important;
+  color: white !important;
+}
+
+body.dark-mode .ant-btn-default {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .ant-btn-dashed {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .ant-btn:hover {
+  border-color: #1890ff !important;
+  color: #1890ff !important;
+}
+
+body.dark-mode .ant-btn-primary:hover {
+  background-color: #40a9ff !important;
+  border-color: #40a9ff !important;
+}
+
+body.dark-mode .ant-input {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .ant-input:focus {
+  border-color: #1890ff !important;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2) !important;
+}
+
+body.dark-mode .ant-form-item-label > label {
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .ant-message {
+  color: #e6e6e6 !important;
+}
+
+/* Dropdown Menu Dark Mode */
+body.dark-mode .ant-dropdown {
+  background-color: #1a1a1a !important;
+  border: 1px solid #333 !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.dark-mode .ant-dropdown-menu {
+  background-color: #1a1a1a !important;
+  border: 1px solid #333 !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.dark-mode .ant-dropdown-menu-item {
+  color: #e6e6e6 !important;
+  background-color: #1a1a1a !important;
+}
+
+body.dark-mode .ant-dropdown-menu-item:hover {
+  background-color: #2a2a2a !important;
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .ant-dropdown-menu-item-disabled {
+  color: #666 !important;
+  background-color: #1a1a1a !important;
+}
+
+body.dark-mode .ant-dropdown-menu-item-disabled:hover {
+  background-color: #1a1a1a !important;
+  color: #666 !important;
+}
+
+body.dark-mode .ant-dropdown-menu-item-divider {
+  background-color: #333 !important;
+}
+
+body.dark-mode .ant-dropdown-menu-item-icon {
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .ant-dropdown-menu-item-disabled .ant-dropdown-menu-item-icon {
+  color: #666 !important;
+}
+
+/* Custom Print Modal Dark Mode */
+body.dark-mode .custom-print-modal-overlay {
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+
+body.dark-mode .custom-print-modal {
+  background-color: #1a1a1a !important;
+  border: 1px solid #333 !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.dark-mode .modal-title {
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .modal-subtitle {
+  color: #999 !important;
+}
+
+body.dark-mode .input-label {
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .quantity-input {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .quantity-input:focus {
+  border-color: #1890ff !important;
+}
+
+body.dark-mode .error-message {
+  color: #ff7875 !important;
+}
+
+body.dark-mode .quick-select-label {
+  color: #999 !important;
+}
+
+body.dark-mode .quick-select-button {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .quick-select-button:hover {
+  border-color: #1890ff !important;
+  color: #1890ff !important;
+}
+
+body.dark-mode .quick-select-button[style*="background: #e6f7ff"] {
+  background-color: #1890ff !important;
+  color: white !important;
+}
+
+body.dark-mode .cancel-button {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .cancel-button:hover {
+  border-color: #1890ff !important;
+  color: #1890ff !important;
+}
+
+body.dark-mode .confirm-button {
+  background-color: #1890ff !important;
+  color: white !important;
+}
+
+body.dark-mode .confirm-button:hover {
+  background-color: #40a9ff !important;
+}
+
+body.dark-mode .confirm-button:disabled {
+  background-color: #444 !important;
+  color: #666 !important;
+}
+
+/* Signin Page Dark Mode */
+body.dark-mode .signin-page {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+}
+
+body.dark-mode .signin-card {
+  background-color: #1a1a1a !important;
+  border: 1px solid #333 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-mode .signin-logo h1 {
+  color: #1890ff !important;
+}
+
+body.dark-mode .signin-logo p {
+  color: #999 !important;
+}
+
+body.dark-mode .signin-info {
+  background-color: #2a2a2a !important;
+  color: #999 !important;
+  border: 1px solid #444 !important;
+}
+
+/* Loading Spinner Dark Mode */
+body.dark-mode .loading-spinner {
+  color: #e6e6e6 !important;
+}
+
+/* Scrollbar Dark Mode */
+body.dark-mode ::-webkit-scrollbar-track {
+  background: #1a1a1a !important;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+  background: #444 !important;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: #555 !important;
+}
+
+/* ===== LIGHT MODE EXPLICIT STYLES ===== */
+body:not(.dark-mode) {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+}
+
+body:not(.dark-mode) header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e8e8e8 !important;
+  color: #333333 !important;
+}
+
+body:not(.dark-mode) .product-card {
+  background-color: #ffffff !important;
+  border-color: #e8e8e8 !important;
+  color: #333333 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+body:not(.dark-mode) .product-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+body:not(.dark-mode) .category-filter {
+  background-color: #ffffff !important;
+  border-color: #e8e8e8 !important;
+}
+
+body:not(.dark-mode) .category-button {
+  background-color: #f5f5f5 !important;
+  border-color: #d9d9d9 !important;
+  color: #333333 !important;
+}
+
+body:not(.dark-mode) .category-button:hover {
+  background-color: #e6f7ff !important;
+  border-color: #1890ff !important;
+}
+
+body:not(.dark-mode) .category-button.active {
+  background-color: #1890ff !important;
+  color: white !important;
+}
+
+body:not(.dark-mode) .category-button.favorite {
+  background-color: #ff4d4f !important;
+  color: white !important;
+}
+
+body:not(.dark-mode) .product-count {
+  background-color: #f0f0f0 !important;
+  color: #666666 !important;
+}
+
+/* Signin page styles */
+.signin-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.signin-card {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.signin-logo {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.signin-logo h1 {
+  color: #1890ff;
+  margin-bottom: 8px;
+}
+
+.signin-logo p {
+  color: #666;
+  margin: 0;
+}
+
+.signin-info {
+  margin-top: 24px;
+  padding: 16px;
+  background: #f6f8fa;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Hide console warnings for Ant Design */
+@media print {
+  .ant-message {
+    display: none !important;
+  }
+}
