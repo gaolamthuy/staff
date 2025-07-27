@@ -7,6 +7,7 @@ import React from "react";
 import { ProductList } from "@/components/ProductList";
 import { Product, ProductCategory, ApiResponse } from "@/types/api";
 import { AuthCheck } from "@/components/AuthCheck";
+import { fetchProductsData } from "@/lib/api";
 
 /**
  * Lấy dữ liệu sản phẩm từ API
@@ -18,17 +19,7 @@ async function getProductsData(): Promise<{
   error?: string;
 }> {
   try {
-    const apiBaseUrl =
-      process.env.NEXT_PUBLIC_API_BASE_URL || "https://cdn.gaolamthuy.vn";
-    const response = await fetch(`${apiBaseUrl}/homepage/data.json`, {
-      next: { revalidate: 3600 }, // Cache 1 giờ
-    });
-
-    if (!response.ok) {
-      throw new Error(`API request failed: ${response.status}`);
-    }
-
-    const apiData = await response.json();
+    const apiData = await fetchProductsData();
 
     // Lọc sản phẩm gạo từ danh sách sản phẩm
     const riceCategories = [

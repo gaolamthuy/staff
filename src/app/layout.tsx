@@ -6,6 +6,20 @@ import { Header } from "@/components/Header";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AuthRedirect } from "@/components/AuthRedirect";
 
+// Suppress Ant Design React compatibility warning
+if (typeof window !== "undefined") {
+  const originalError = console.error;
+  console.error = (...args) => {
+    if (
+      args[0]?.includes?.("antd: compatible") ||
+      args[0]?.includes?.("React is 16 ~ 18")
+    ) {
+      return;
+    }
+    originalError.apply(console, args);
+  };
+}
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

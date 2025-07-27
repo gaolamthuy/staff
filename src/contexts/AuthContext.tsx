@@ -83,6 +83,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const expectedPassword =
         process.env.NEXT_PUBLIC_AUTH_PASSWORD || "password123";
 
+      console.log("Auth check:", {
+        provided: { username, password },
+        expected: { expectedUsername, expectedPassword },
+        match: username === expectedUsername && password === expectedPassword,
+      });
+
       if (username === expectedUsername && password === expectedPassword) {
         const userData: User = {
           username,
@@ -100,6 +106,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return false;
       }
     } catch (error) {
+      console.error("Login error in AuthContext:", error);
       return false;
     }
   };

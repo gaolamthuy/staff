@@ -8,32 +8,6 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
 
-  // Tối ưu hóa bundle size
-  experimental: {
-    optimizeCss: true,
-  },
-
-  // Cấu hình webpack để giảm bundle size
-  webpack: (config, { dev, isServer }) => {
-    if (!dev && !isServer) {
-      // Tối ưu hóa cho production
-      config.optimization = {
-        ...config.optimization,
-        splitChunks: {
-          chunks: "all",
-          cacheGroups: {
-            vendor: {
-              test: /[\\/]node_modules[\\/]/,
-              name: "vendors",
-              chunks: "all",
-            },
-          },
-        },
-      };
-    }
-    return config;
-  },
-
   // Tắt một số tính năng không cần thiết
   compress: false,
   poweredByHeader: false,

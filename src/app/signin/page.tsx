@@ -62,15 +62,18 @@ export default function SignInPage() {
    * Xử lý đăng nhập
    */
   const handleSignIn = async (values: SignInForm) => {
+    console.log("Attempting login with:", values);
     setLoading(true);
     try {
       const success = await login(values.username, values.password);
+      console.log("Login result:", success);
       if (success) {
         message.success("Đăng nhập thành công!");
       } else {
         message.error("Tên đăng nhập hoặc mật khẩu không đúng!");
       }
     } catch (error) {
+      console.error("Login error:", error);
       message.error("Có lỗi xảy ra khi đăng nhập!");
     } finally {
       setLoading(false);
@@ -80,17 +83,28 @@ export default function SignInPage() {
   return (
     <div className="signin-page">
       <div className="signin-card">
+        {/* logo center */}
         <div className="signin-logo">
           <img
             src="/icon0.svg"
             alt="Logo Gạo Lâm Thúy"
-            style={{ height: 48, marginBottom: 8 }}
+            style={{
+              height: 100,
+              marginBottom: 8,
+              display: "block",
+              margin: "0 auto 0 auto",
+            }}
           />
           <h1>Gạo Lâm Thúy - Staff</h1>
-          <p>Hệ thống quản lý sản phẩm và in tem</p>
+          <p>Quản lý sản phẩm và in tem</p>
         </div>
 
-        <Form name="signin" onFinish={handleSignIn} layout="vertical">
+        <Form
+          name="signin"
+          onFinish={handleSignIn}
+          layout="vertical"
+          initialValues={{ username: "", password: "" }}
+        >
           <Form.Item
             name="username"
             label="Tên đăng nhập"
@@ -102,6 +116,7 @@ export default function SignInPage() {
               prefix={<UserOutlined />}
               placeholder="Nhập tên đăng nhập"
               size="large"
+              autoComplete="username"
             />
           </Form.Item>
 
@@ -114,6 +129,7 @@ export default function SignInPage() {
               prefix={<LockOutlined />}
               placeholder="Nhập mật khẩu"
               size="large"
+              autoComplete="current-password"
             />
           </Form.Item>
 
@@ -142,7 +158,7 @@ export default function SignInPage() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style jsx global>{`
         @keyframes spin {
           0% {
             transform: rotate(0deg);
@@ -150,6 +166,49 @@ export default function SignInPage() {
           100% {
             transform: rotate(360deg);
           }
+        }
+
+        /* Prevent flash during theme switch */
+        .ant-input,
+        .ant-input-password,
+        .ant-input-affix-wrapper {
+          transition: all 0.2s ease !important;
+        }
+
+        /* Force dark mode input styles */
+        body.dark-mode .ant-input,
+        body.dark-mode .ant-input-password,
+        body.dark-mode .ant-input-affix-wrapper {
+          background-color: #2a2a2a !important;
+          border-color: #444 !important;
+          color: #e6e6e6 !important;
+        }
+
+        body.dark-mode .ant-input:focus,
+        body.dark-mode .ant-input-password:focus,
+        body.dark-mode .ant-input-affix-wrapper:focus {
+          background-color: #2a2a2a !important;
+          border-color: #1890ff !important;
+          box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2) !important;
+        }
+
+        body.dark-mode .ant-input::placeholder,
+        body.dark-mode .ant-input-password .ant-input::placeholder {
+          color: #888 !important;
+        }
+
+        /* Light mode input styles */
+        body:not(.dark-mode) .ant-input,
+        body:not(.dark-mode) .ant-input-password,
+        body:not(.dark-mode) .ant-input-affix-wrapper {
+          background-color: #ffffff !important;
+          border-color: #d9d9d9 !important;
+          color: #000000 !important;
+        }
+
+        body:not(.dark-mode) .ant-input::placeholder,
+        body:not(.dark-mode) .ant-input-password .ant-input::placeholder {
+          color: #bfbfbf !important;
         }
       `}</style>
     </div>

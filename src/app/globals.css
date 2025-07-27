@@ -12,6 +12,13 @@ body.dark-mode {
   background-color: #0a0a0a !important;
   color: #e6e6e6 !important;
   transition: background-color 0.3s ease, color 0.3s ease;
+
+  /* CSS Variables for dark mode inputs */
+  --dark-input-bg: #2a2a2a;
+  --dark-input-border: #444;
+  --dark-input-text: #e6e6e6;
+  --dark-input-focus-border: #1890ff;
+  --dark-input-placeholder: #888;
 }
 
 /* Header Dark Mode */
@@ -158,35 +165,53 @@ body.dark-mode .ant-btn-primary:hover {
   border-color: #40a9ff !important;
 }
 
-body.dark-mode .ant-input {
-  background-color: #2a2a2a !important;
-  border-color: #444 !important;
-  color: #e6e6e6 !important;
+/* Light mode input styles - Reset to default */
+body:not(.dark-mode) .ant-input,
+body:not(.dark-mode) .ant-input-password,
+body:not(.dark-mode) .ant-input-affix-wrapper {
+  background-color: #ffffff !important;
+  border-color: #d9d9d9 !important;
+  color: #000000 !important;
+  transition: all 0.2s ease !important;
 }
 
-body.dark-mode .ant-input:focus {
+body:not(.dark-mode) .ant-input:focus,
+body:not(.dark-mode) .ant-input-password:focus,
+body:not(.dark-mode) .ant-input-affix-wrapper:focus {
+  background-color: #ffffff !important;
   border-color: #1890ff !important;
   box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2) !important;
 }
 
-/* Input placeholder dark mode */
-body.dark-mode .ant-input::placeholder {
-  color: #888 !important;
+body:not(.dark-mode) .ant-input::placeholder,
+body:not(.dark-mode) .ant-input-password .ant-input::placeholder {
+  color: #bfbfbf !important;
 }
 
-/* Password input dark mode */
-body.dark-mode .ant-input-password {
+/* Fix password input placeholder specifically */
+body:not(.dark-mode) .ant-input-password .ant-input::placeholder {
+  color: #bfbfbf !important;
+}
+
+/* Dark mode input styles with transition */
+body.dark-mode .ant-input,
+body.dark-mode .ant-input-password,
+body.dark-mode .ant-input-affix-wrapper {
   background-color: #2a2a2a !important;
   border-color: #444 !important;
   color: #e6e6e6 !important;
+  transition: all 0.2s ease !important;
 }
 
-body.dark-mode .ant-input-password .ant-input {
-  background-color: transparent !important;
-  border: none !important;
-  color: #e6e6e6 !important;
+body.dark-mode .ant-input:focus,
+body.dark-mode .ant-input-password:focus,
+body.dark-mode .ant-input-affix-wrapper:focus {
+  background-color: #2a2a2a !important;
+  border-color: #1890ff !important;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2) !important;
 }
 
+body.dark-mode .ant-input::placeholder,
 body.dark-mode .ant-input-password .ant-input::placeholder {
   color: #888 !important;
 }
@@ -341,48 +366,44 @@ body.dark-mode .confirm-button:disabled {
 
 /* Signin Page Dark Mode */
 body.dark-mode .signin-page {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+  background: #0f0f23 !important;
 }
 
-body.dark-mode .signin-page::before {
-  background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(24, 144, 255, 0.1) 50%,
-    transparent 70%
-  ) !important;
+body:not(.dark-mode) .signin-page {
+  background: #f5f5f5 !important;
 }
 
 body.dark-mode .signin-card {
-  background-color: #1a1a1a !important;
+  background-color: rgba(26, 26, 26, 0.95) !important;
   border: 1px solid #333 !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(10px) !important;
   transition: all 0.3s ease !important;
 }
 
 body.dark-mode .signin-card:hover {
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
-  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+  transform: translateY(-1px) !important;
 }
 
 body.dark-mode .signin-logo h1 {
-  color: #1890ff !important;
-  text-shadow: 0 0 10px rgba(24, 144, 255, 0.3) !important;
+  color: #e6e6e6 !important;
+  text-shadow: none !important;
 }
 
 body.dark-mode .signin-logo p {
-  color: #999 !important;
-  text-shadow: 0 0 5px rgba(153, 153, 153, 0.2) !important;
+  color: #b0b0b0 !important;
+  text-shadow: none !important;
 }
 
-/* Logo glow effect in dark mode */
+/* Logo styling in dark mode */
 body.dark-mode .signin-logo img {
-  filter: drop-shadow(0 0 8px rgba(24, 144, 255, 0.4)) !important;
+  filter: brightness(1.1) contrast(1.1) !important;
   transition: filter 0.3s ease !important;
 }
 
 body.dark-mode .signin-logo img:hover {
-  filter: drop-shadow(0 0 12px rgba(24, 144, 255, 0.6)) !important;
+  filter: brightness(1.2) contrast(1.2) !important;
 }
 
 body.dark-mode .signin-info {
@@ -484,37 +505,7 @@ body:not(.dark-mode) .product-count {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 20px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Animated background for signin page */
-.signin-page::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.1) 50%,
-    transparent 70%
-  );
-  animation: shimmer 3s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
 }
 
 .signin-card {
@@ -524,6 +515,12 @@ body:not(.dark-mode) .product-count {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
+  transition: all 0.3s ease;
+}
+
+.signin-card:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
 }
 
 .signin-logo {
