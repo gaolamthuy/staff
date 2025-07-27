@@ -2,10 +2,4 @@ name = "gaolamthuy-staff"
 compatibility_date = "2024-01-01"
 
 # Cấu hình cho Cloudflare Pages
-pages_build_output_dir = "out"
-
-[build]
-command = "npm run build"
-
-[env.production]
-name = "gaolamthuy-staff" 
+pages_build_output_dir = "out" 
