@@ -5,13 +5,12 @@
 
 import React from "react";
 import { ProductList } from "@/components/ProductList";
-import { fetchProductsData, ApiError } from "@/lib/api";
-import { Product, ProductCategory } from "@/types/api";
+import { Product, ProductCategory, ApiResponse } from "@/types/api";
 import { AuthCheck } from "@/components/AuthCheck";
 
 /**
  * Lấy dữ liệu sản phẩm từ API
- * Sử dụng dynamic import để tránh lỗi build với static export
+ * Fetch trực tiếp từ external API để tương thích với static export
  */
 async function getProductsData(): Promise<{
   products: Product[];
@@ -19,9 +18,17 @@ async function getProductsData(): Promise<{
   error?: string;
 }> {
   try {
-    // Sử dụng dynamic import để tránh lỗi build
-    const { fetchProductsData } = await import("@/lib/api");
-    const apiData = await fetchProductsData();
+    const apiBaseUrl =
+      process.env.NEXT_PUBLIC_API_BASE_URL || "https://cdn.gaolamthuy.vn";
+    const response = await fetch(`${apiBaseUrl}/homepage/data.json`, {
+      next: { revalidate: 3600 }, // Cache 1 giờ
+    });
+
+    if (!response.ok) {
+      throw new Error(`API request failed: ${response.status}`);
+    }
+
+    const apiData = await response.json();
 
     // Lọc sản phẩm gạo từ danh sách sản phẩm
     const riceCategories = [
@@ -33,13 +40,13 @@ async function getProductsData(): Promise<{
       "Tấm",
     ];
 
-    const riceProducts = apiData.products.filter((product) =>
-      riceCategories.includes(product.categoryName)
+    const riceProducts = (apiData as ApiResponse).products.filter(
+      (product: Product) => riceCategories.includes(product.categoryName)
     );
 
     // Tạo danh sách categories từ sản phẩm gạo
     const availableCategories: ProductCategory[] = riceProducts.reduce(
-      (categories: ProductCategory[], product) => {
+      (categories: ProductCategory[], product: Product) => {
         const existingCategory = categories.find(
           (cat) => cat.categoryName === product.categoryName
         );
@@ -72,13 +79,7 @@ async function getProductsData(): Promise<{
       categories: availableCategories,
     };
   } catch (error) {
-    if (error instanceof ApiError) {
-      return {
-        products: [],
-        categories: [],
-        error: error.message,
-      };
-    }
+    console.error("Error fetching products:", error);
     return {
       products: [],
       categories: [],

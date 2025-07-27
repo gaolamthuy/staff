@@ -11,7 +11,6 @@ const nextConfig: NextConfig = {
   // Tối ưu hóa bundle size
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ["@next/font"],
   },
 
   // Cấu hình webpack để giảm bundle size
