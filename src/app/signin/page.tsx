@@ -132,7 +132,13 @@ export default function SignInPage() {
         </Form>
 
         <div className="signin-info">
-          Thông tin đăng nhập: username / password123
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <span style={{ fontSize: "14px", opacity: 0.7 }}>ℹ️</span>
+            <span>
+              Thông tin đăng nhập: <strong>username</strong> /{" "}
+              <strong>password123</strong>
+            </span>
+          </div>
         </div>
       </div>
 
