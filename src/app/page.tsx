@@ -40,8 +40,13 @@ async function getProductsData(): Promise<{
       "Tấm",
     ];
 
-    const riceProducts = (apiData as ApiResponse).products.filter(
-      (product: Product) => riceCategories.includes(product.categoryName)
+    // Đảm bảo apiData có cấu trúc đúng
+    if (!apiData || !apiData.products || !Array.isArray(apiData.products)) {
+      throw new Error("Invalid API response structure");
+    }
+
+    const riceProducts = apiData.products.filter((product: Product) =>
+      riceCategories.includes(product.categoryName)
     );
 
     // Tạo danh sách categories từ sản phẩm gạo
