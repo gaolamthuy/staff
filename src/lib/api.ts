@@ -120,6 +120,9 @@ export function getProductByCode(
 
 /**
  * Tạo URL để in tem sản phẩm
+ * @param code - Mã sản phẩm
+ * @param quantity - Số lượng in
+ * @returns string - URL để in tem với đầy đủ tham số
  */
 export function createPrintLabelUrl(code: string, quantity: number): string {
   const printApiUrl = process.env.NEXT_PUBLIC_PRINT_API_URL;
@@ -132,7 +135,9 @@ export function createPrintLabelUrl(code: string, quantity: number): string {
     );
   }
 
-  return `${printApiUrl}?code=${encodeURIComponent(code)}&quantity=${quantity}`;
+  return `${printApiUrl}?printType=label&code=${encodeURIComponent(
+    code
+  )}&quantity=${quantity}`;
 }
 
 /**
