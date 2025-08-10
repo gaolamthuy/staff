@@ -18,10 +18,11 @@ interface ProductCardProps {
 
 /**
  * Format giá tiền theo định dạng Việt Nam
+ * Ưu tiên sử dụng basePrice để hiển thị giá chính xác
  */
 function formatPrice(product: Product): string {
-  // Try price first, then basePrice, then fallback to 0
-  const price = product.price ?? product.basePrice ?? 0;
+  // Ưu tiên basePrice trước, sau đó mới đến price, cuối cùng fallback về 0
+  const price = product.basePrice ?? 0;
   return price.toLocaleString("vi-VN") + " ₫";
 }
 
