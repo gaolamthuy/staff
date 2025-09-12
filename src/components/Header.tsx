@@ -60,7 +60,7 @@ export const Header: React.FC = () => {
     {
       key: "profile",
       icon: <UserOutlined />,
-      label: `Xin chào, ${user?.username || "User"}`,
+      label: `Xin chào, ${user?.email || user?.username || "User"}`,
       disabled: true,
     },
     {

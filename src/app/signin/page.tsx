@@ -12,7 +12,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 
 interface SignInForm {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -65,12 +65,12 @@ export default function SignInPage() {
     console.log("Attempting login with:", values);
     setLoading(true);
     try {
-      const success = await login(values.username, values.password);
+      const success = await login(values.email, values.password);
       console.log("Login result:", success);
       if (success) {
         message.success("Đăng nhập thành công!");
       } else {
-        message.error("Tên đăng nhập hoặc mật khẩu không đúng!");
+        message.error("Email hoặc mật khẩu không đúng!");
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -103,20 +103,21 @@ export default function SignInPage() {
           name="signin"
           onFinish={handleSignIn}
           layout="vertical"
-          initialValues={{ username: "", password: "" }}
+          initialValues={{ email: "", password: "" }}
         >
           <Form.Item
-            name="username"
-            label="Tên đăng nhập"
+            name="email"
+            label="Email"
             rules={[
-              { required: true, message: "Vui lòng nhập tên đăng nhập!" },
+              { required: true, message: "Vui lòng nhập email!" },
+              { type: "email", message: "Email không hợp lệ!" },
             ]}
           >
             <Input
               prefix={<UserOutlined />}
-              placeholder="Nhập tên đăng nhập"
+              placeholder="Nhập email"
               size="large"
-              autoComplete="username"
+              autoComplete="email"
             />
           </Form.Item>
 
@@ -151,8 +152,7 @@ export default function SignInPage() {
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <span style={{ fontSize: "14px", opacity: 0.7 }}>ℹ️</span>
             <span>
-              Thông tin đăng nhập: <strong>username</strong> /{" "}
-              <strong>password123</strong>
+              Đăng nhập bằng email và mật khẩu được cung cấp bởi admin
             </span>
           </div>
         </div>
