@@ -1,10 +1,20 @@
 /**
  * API Service Layer
  * Xử lý tất cả các API calls và error handling
+ * Đã được cập nhật để sử dụng Supabase thay vì API CDN
  */
 
-import { ApiResponse } from "@/types/api";
+import { ApiResponse, Product } from "@/types/api";
 import { validateApiResponse } from "./validation";
+import {
+  fetchProductsFromSupabase,
+  fetchProductsByCategory as fetchProductsByCategoryFromSupabase,
+  searchProducts as searchProductsFromSupabase,
+  getProductById as getProductByIdFromSupabase,
+  updateProductFavorite as updateProductFavoriteFromSupabase,
+  toggleProductFavorite as toggleProductFavoriteFromSupabase,
+  SupabaseApiError,
+} from "./supabase-api";
 
 export class ApiError extends Error {
   constructor(
@@ -18,61 +28,101 @@ export class ApiError extends Error {
 }
 
 /**
- * Fetch dữ liệu sản phẩm từ API
+ * Fetch dữ liệu sản phẩm từ Supabase
+ * Thay thế cho API CDN cũ
  */
 export async function fetchProductsData(): Promise<ApiResponse> {
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-  if (!apiBaseUrl) {
-    throw new ApiError(
-      "API base URL không được cấu hình",
-      500,
-      "MISSING_API_CONFIG"
-    );
-  }
-
   try {
-    const response = await fetch(`${apiBaseUrl}/homepage/data.json`);
+    // Sử dụng Supabase thay vì API CDN
+    const data = await fetchProductsFromSupabase();
 
-    if (!response.ok) {
-      throw new ApiError(
-        `API request failed: ${response.status} ${response.statusText}`,
-        response.status,
-        "API_REQUEST_FAILED"
-      );
-    }
-
-    const data = await response.json();
-
-    // Handle array response
-    if (Array.isArray(data)) {
-      const productsData = data.find(
-        (item) => item.products && Array.isArray(item.products)
-      );
-
-      if (!productsData) {
-        throw new ApiError(
-          "Không tìm thấy dữ liệu sản phẩm trong response",
-          500,
-          "NO_PRODUCTS_DATA"
-        );
-      }
-
-      return validateApiResponse(productsData);
-    } else {
-      return validateApiResponse(data);
-    }
+    // Validate dữ liệu trả về
+    return validateApiResponse(data);
   } catch (error) {
-    if (error instanceof ApiError) {
-      throw error;
+    if (error instanceof SupabaseApiError) {
+      // Chuyển đổi SupabaseApiError thành ApiError để tương thích
+      throw new ApiError(error.message, error.statusCode, error.code);
     }
 
     throw new ApiError(
-      `Network error: ${
+      `Lỗi khi lấy dữ liệu sản phẩm: ${
         error instanceof Error ? error.message : "Unknown error"
       }`,
       500,
-      "NETWORK_ERROR"
+      "SUPABASE_ERROR"
+    );
+  }
+}
+
+/**
+ * Lấy sản phẩm theo danh mục từ Supabase
+ * @param categoryName - Tên danh mục cần lọc
+ * @returns Promise<Product[]> - Danh sách sản phẩm đã lọc
+ */
+export async function fetchProductsByCategory(
+  categoryName: string
+): Promise<Product[]> {
+  try {
+    return await fetchProductsByCategoryFromSupabase(categoryName);
+  } catch (error) {
+    if (error instanceof SupabaseApiError) {
+      throw new ApiError(error.message, error.statusCode, error.code);
+    }
+
+    throw new ApiError(
+      `Lỗi khi lấy sản phẩm theo danh mục: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`,
+      500,
+      "SUPABASE_ERROR"
+    );
+  }
+}
+
+/**
+ * Tìm kiếm sản phẩm từ Supabase
+ * @param searchTerm - Từ khóa tìm kiếm
+ * @returns Promise<Product[]> - Danh sách sản phẩm tìm được
+ */
+export async function searchProducts(searchTerm: string): Promise<Product[]> {
+  try {
+    return await searchProductsFromSupabase(searchTerm);
+  } catch (error) {
+    if (error instanceof SupabaseApiError) {
+      throw new ApiError(error.message, error.statusCode, error.code);
+    }
+
+    throw new ApiError(
+      `Lỗi khi tìm kiếm sản phẩm: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`,
+      500,
+      "SUPABASE_ERROR"
+    );
+  }
+}
+
+/**
+ * Lấy thông tin sản phẩm theo ID từ Supabase
+ * @param productId - ID của sản phẩm
+ * @returns Promise<Product | null> - Thông tin sản phẩm hoặc null nếu không tìm thấy
+ */
+export async function getProductById(
+  productId: string | number
+): Promise<Product | null> {
+  try {
+    return await getProductByIdFromSupabase(productId);
+  } catch (error) {
+    if (error instanceof SupabaseApiError) {
+      throw new ApiError(error.message, error.statusCode, error.code);
+    }
+
+    throw new ApiError(
+      `Lỗi khi lấy thông tin sản phẩm: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`,
+      500,
+      "SUPABASE_ERROR"
     );
   }
 }
@@ -148,4 +198,56 @@ export function createPrintLabelUrl(code: string, quantity: number): string {
 export function openPrintLabel(code: string, quantity: number): void {
   const printUrl = createPrintLabelUrl(code, quantity);
   window.open(printUrl, "_blank", "noopener,noreferrer");
+}
+
+/**
+ * Cập nhật trạng thái favorite của sản phẩm
+ * @param productId - ID của sản phẩm (kiotviet_id)
+ * @param isFavorite - Trạng thái favorite mới
+ * @returns Promise<boolean> - true nếu cập nhật thành công
+ */
+export async function updateProductFavorite(
+  productId: string | number,
+  isFavorite: boolean
+): Promise<boolean> {
+  try {
+    return await updateProductFavoriteFromSupabase(productId, isFavorite);
+  } catch (error) {
+    if (error instanceof SupabaseApiError) {
+      throw new ApiError(error.message, error.statusCode, error.code);
+    }
+
+    throw new ApiError(
+      `Lỗi khi cập nhật favorite: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`,
+      500,
+      "SUPABASE_ERROR"
+    );
+  }
+}
+
+/**
+ * Toggle trạng thái favorite của sản phẩm
+ * @param productId - ID của sản phẩm (kiotviet_id)
+ * @returns Promise<boolean> - Trạng thái favorite mới
+ */
+export async function toggleProductFavorite(
+  productId: string | number
+): Promise<boolean> {
+  try {
+    return await toggleProductFavoriteFromSupabase(productId);
+  } catch (error) {
+    if (error instanceof SupabaseApiError) {
+      throw new ApiError(error.message, error.statusCode, error.code);
+    }
+
+    throw new ApiError(
+      `Lỗi khi toggle favorite: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`,
+      500,
+      "SUPABASE_ERROR"
+    );
+  }
 }

@@ -6,11 +6,11 @@ Hệ thống sử dụng các API endpoints để lấy dữ liệu sản phẩm
 
 ## 🌐 External APIs
 
-### 1. Products API
+### 1. Products API (Supabase)
 
-**Endpoint**: `GET ${NEXT_PUBLIC_API_URL}`
+**Endpoint**: Supabase Database
 
-**Description**: Lấy danh sách tất cả sản phẩm từ CDN
+**Description**: Lấy danh sách tất cả sản phẩm từ Supabase database
 
 **Response Format**:
 
@@ -120,6 +120,8 @@ class ApiError extends Error {
 
 Các URL nhạy cảm được ẩn trong environment variables:
 
+- `NEXT_PUBLIC_SUPABASE_URL`: URL Supabase project
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Supabase anonymous key
 - `NEXT_PUBLIC_PRINT_API_URL`: URL API in tem
 - `NEXT_PUBLIC_WEBHOOK_URL`: URL webhook
 
@@ -172,7 +174,7 @@ const handlePrint = (code: string, quantity: number) => {
 
 ## 🔄 Data Flow
 
-1. **Load Products**: `page.tsx` → `fetchProductsData()` → External API
+1. **Load Products**: `page.tsx` → `fetchProductsData()` → Supabase Database
 2. **Filter Products**: `ProductList` → Filter by rice categories
 3. **Print Label**: `ProductCard` → `createPrintLabelUrl()` → Print API
 

@@ -4,7 +4,7 @@
  */
 
 import React from "react";
-import { ProductList } from "@/components/ProductList";
+import { ProductListWrapper } from "@/components/ProductListWrapper";
 import { Product, ProductCategory, ApiResponse } from "@/types/api";
 import { AuthCheck } from "@/components/AuthCheck";
 import { fetchProductsData } from "@/lib/api";
@@ -124,7 +124,7 @@ export default async function HomePage() {
         </div>
       ) : (
         <div>
-          <ProductList
+          <ProductListWrapper
             products={products}
             categories={categories}
             isLoading={false}

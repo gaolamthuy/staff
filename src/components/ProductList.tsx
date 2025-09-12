@@ -16,6 +16,7 @@ interface ProductListProps {
   categories: ProductCategory[];
   isLoading?: boolean;
   error?: string;
+  onFavoriteChange?: (productId: string | number, isFavorite: boolean) => void;
 }
 
 /**
@@ -26,6 +27,7 @@ export const ProductList: React.FC<ProductListProps> = ({
   categories,
   isLoading = false,
   error,
+  onFavoriteChange,
 }) => {
   const [selectedCategory, setSelectedCategory] = React.useState<string | null>(
     "favorite" // Mặc định chọn "Yêu thích"
@@ -128,7 +130,11 @@ export const ProductList: React.FC<ProductListProps> = ({
             }}
           >
             {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                onFavoriteChange={onFavoriteChange}
+              />
             ))}
           </div>
         </div>

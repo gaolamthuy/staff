@@ -6,14 +6,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button } from "antd";
-import { PrinterOutlined } from "@ant-design/icons";
+import { Button, message, Tooltip } from "antd";
+import { PrinterOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Product } from "@/types/api";
-import { createPrintLabelUrl } from "@/lib/api";
+import { createPrintLabelUrl, toggleProductFavorite } from "@/lib/api";
 import { CustomPrintModal } from "./CustomPrintModal";
 
 interface ProductCardProps {
   product: Product;
+  onFavoriteChange?: (productId: string | number, isFavorite: boolean) => void;
 }
 
 /**
@@ -46,11 +47,47 @@ function getProductImage(product: Product): string | null {
 /**
  * Product Card Component
  */
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  onFavoriteChange,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(
+    product.glt?.glt_labelprint_favorite || false
+  );
+  const [isUpdatingFavorite, setIsUpdatingFavorite] = useState(false);
 
   const productImage = getProductImage(product);
+
+  /**
+   * Xử lý toggle favorite
+   */
+  const handleToggleFavorite = async () => {
+    if (isUpdatingFavorite) return;
+
+    setIsUpdatingFavorite(true);
+    try {
+      const newFavoriteStatus = await toggleProductFavorite(product.id);
+      setIsFavorite(newFavoriteStatus);
+
+      // Gọi callback để thông báo cho parent component
+      if (onFavoriteChange) {
+        onFavoriteChange(product.id, newFavoriteStatus);
+      }
+
+      message.success(
+        newFavoriteStatus
+          ? "Đã thêm vào danh sách yêu thích"
+          : "Đã xóa khỏi danh sách yêu thích"
+      );
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+      message.error("Có lỗi xảy ra khi cập nhật yêu thích");
+    } finally {
+      setIsUpdatingFavorite(false);
+    }
+  };
 
   /**
    * Xử lý in tem với số lượng cố định
@@ -137,31 +174,86 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         {/* Product Info */}
         <div style={{ marginBottom: "16px" }}>
-          <h3
+          <div
             style={{
-              margin: "0 0 8px 0",
-              fontSize: "16px",
-              fontWeight: "bold",
-              color: "#333",
               display: "flex",
-              alignItems: "center",
-              gap: "8px",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              marginBottom: "8px",
             }}
           >
-            <span>{product.name || "Không có tên"}</span>
-            <span
+            <h3
               style={{
-                padding: "2px 6px",
-                background: "#f0f0f0",
-                borderRadius: "4px",
-                fontSize: "12px",
-                color: "#666",
-                fontWeight: "normal",
+                margin: "0",
+                fontSize: "16px",
+                fontWeight: "bold",
+                color: "#333",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                flex: 1,
               }}
             >
-              {product.categoryName || "Không phân loại"}
-            </span>
-          </h3>
+              <span>{product.name || "Không có tên"}</span>
+              <span
+                style={{
+                  padding: "2px 6px",
+                  background: "#f0f0f0",
+                  borderRadius: "4px",
+                  fontSize: "12px",
+                  color: "#666",
+                  fontWeight: "normal",
+                }}
+              >
+                {product.categoryName || "Không phân loại"}
+              </span>
+            </h3>
+
+            {/* Favorite Button */}
+            <Tooltip
+              title={isFavorite ? "Xóa khỏi yêu thích" : "Thêm vào yêu thích"}
+              placement="top"
+            >
+              <Button
+                type="text"
+                size="small"
+                icon={
+                  isFavorite ? (
+                    <HeartFilled
+                      style={{ color: "#ff4d4f", fontSize: "16px" }}
+                    />
+                  ) : (
+                    <HeartOutlined
+                      style={{ color: "#d9d9d9", fontSize: "16px" }}
+                    />
+                  )
+                }
+                loading={isUpdatingFavorite}
+                onClick={handleToggleFavorite}
+                style={{
+                  padding: "4px",
+                  minWidth: "32px",
+                  height: "32px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: "none",
+                  background: "transparent",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  if (!isFavorite) {
+                    e.currentTarget.style.background = "#fff2f0";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isFavorite) {
+                    e.currentTarget.style.background = "transparent";
+                  }
+                }}
+              />
+            </Tooltip>
+          </div>
           <p
             style={{
               margin: "0 0 4px 0",
