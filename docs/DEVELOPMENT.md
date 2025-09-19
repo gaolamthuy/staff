@@ -39,9 +39,8 @@ Tạo file `.env.local` với các biến sau:
 # API Configuration
 NEXT_PUBLIC_API_URL=your_api_url_here
 
-# Print Configuration (Ẩn trong code)
-NEXT_PUBLIC_PRINT_API_URL=your_print_api_url_here
-NEXT_PUBLIC_WEBHOOK_URL=your_webhook_url_here
+# Webhook Configuration (Ẩn trong code)
+NEXT_PUBLIC_WEBHOOK_URL=https://n8n.gaolamthuy.vn/webhook
 ```
 
 ## 🚀 Cách chạy Development
@@ -131,7 +130,7 @@ const { isDarkMode, toggleTheme } = useTheme();
 ### Common Issues
 
 1. **API Errors**: Kiểm tra `NEXT_PUBLIC_API_URL` trong .env
-2. **Print Errors**: Kiểm tra `NEXT_PUBLIC_PRINT_API_URL` và `NEXT_PUBLIC_WEBHOOK_URL`
+2. **Print Errors**: Kiểm tra `NEXT_PUBLIC_WEBHOOK_URL`
 3. **Theme Issues**: Kiểm tra localStorage 'theme' value
 
 ### Logs

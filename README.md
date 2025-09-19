@@ -48,9 +48,8 @@ Tạo file `.env.local` và cấu hình các biến môi trường:
 # API Configuration
 NEXT_PUBLIC_API_URL=your_api_url_here
 
-# Print Configuration (Required for print functionality)
-NEXT_PUBLIC_PRINT_API_URL=your_print_api_url_here
-NEXT_PUBLIC_WEBHOOK_URL=your_webhook_url_here
+# Webhook Configuration (Required for print functionality)
+NEXT_PUBLIC_WEBHOOK_URL=https://n8n.gaolamthuy.vn/webhook
 ```
 
 ### Bước 4: Chạy development server

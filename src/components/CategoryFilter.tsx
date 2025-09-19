@@ -227,28 +227,6 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
           );
         })}
       </div>
-
-      {/* Selected Category Info */}
-      {selectedCategory && (
-        <div
-          className="selected-category-info"
-          style={{
-            marginTop: "16px",
-            padding: "12px 16px",
-            background: "#e6f7ff",
-            border: "1px solid #91d5ff",
-            borderRadius: "8px",
-            fontSize: "14px",
-            color: "#1890ff",
-          }}
-        >
-          Đang xem:{" "}
-          <strong>
-            {selectedCategory === "favorite" ? "Yêu thích" : selectedCategory}
-          </strong>{" "}
-          ({getProductCount(selectedCategory)} sản phẩm)
-        </div>
-      )}
     </div>
   );
 };

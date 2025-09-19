@@ -10,11 +10,11 @@
 
 ```env
 # Supabase Configuration
-NEXT_PUBLIC_SUPABASE_URL=https://wvckxasjbydyvqgwgdhg.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 
-# Print API (giữ nguyên)
-NEXT_PUBLIC_PRINT_API_URL=https://n8n.gaolamthuy.vn/webhook/print
+# Webhook URL
+NEXT_PUBLIC_WEBHOOK_URL=your-webhook-url
 
 # Authentication đã được tích hợp với Supabase Auth
 # Không cần hardcoded credentials nữa
@@ -84,7 +84,7 @@ await supabase.auth.signOut();
 
 ### Tạo User (Admin)
 
-1. **Supabase Dashboard**: https://supabase.com/dashboard/project/wvckxasjbydyvqgwgdhg/auth/users
+1. **Supabase Dashboard**: https://supabase.com/dashboard/project/your-project-id/auth/users
 2. **Add User**: Click "Add user" button
 3. **Email/Password**: Nhập email và password cho user
 4. **Confirm**: User sẽ có thể đăng nhập ngay

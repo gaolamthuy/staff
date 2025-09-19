@@ -57,17 +57,17 @@ export async function fetchProductsData(): Promise<ApiResponse> {
  * @returns string - URL để in tem với đầy đủ tham số
  */
 export function createPrintLabelUrl(code: string, quantity: number): string {
-  const printApiUrl = process.env.NEXT_PUBLIC_PRINT_API_URL;
+  const webhookUrl = process.env.NEXT_PUBLIC_WEBHOOK_URL + "/print";
 
-  if (!printApiUrl) {
+  if (!webhookUrl) {
     throw new ApiError(
-      "Print API URL không được cấu hình",
+      "Webhook URL không được cấu hình",
       500,
-      "MISSING_PRINT_CONFIG"
+      "MISSING_WEBHOOK_CONFIG"
     );
   }
 
-  return `${printApiUrl}?printType=label&code=${encodeURIComponent(
+  return `${webhookUrl}?printType=label&code=${encodeURIComponent(
     code
   )}&quantity=${quantity}`;
 }
