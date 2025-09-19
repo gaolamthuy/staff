@@ -10,13 +10,15 @@ import Link from "next/link";
 
 export default function PrintNotFound() {
   return (
-    <div style={{ 
-      display: "flex", 
-      justifyContent: "center", 
-      alignItems: "center", 
-      minHeight: "100vh",
-      padding: "24px"
-    }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        padding: "24px",
+      }}
+    >
       <Result
         status="404"
         title="404"
@@ -28,10 +30,8 @@ export default function PrintNotFound() {
             </Button>
           </Link>,
           <Link key="retail" href="/print/label-retail">
-            <Button icon={<PrinterOutlined />}>
-              In tem bán lẻ
-            </Button>
-          </Link>
+            <Button icon={<PrinterOutlined />}>In tem bán lẻ</Button>
+          </Link>,
         ]}
       />
     </div>

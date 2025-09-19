@@ -10,13 +10,15 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div style={{ 
-      display: "flex", 
-      justifyContent: "center", 
-      alignItems: "center", 
-      minHeight: "100vh",
-      padding: "24px"
-    }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        padding: "24px",
+      }}
+    >
       <Result
         status="404"
         title="404"
@@ -27,13 +29,13 @@ export default function NotFound() {
               Về trang chủ
             </Button>
           </Link>,
-          <Button 
-            key="reload" 
+          <Button
+            key="reload"
             icon={<ReloadOutlined />}
             onClick={() => window.location.reload()}
           >
             Tải lại trang
-          </Button>
+          </Button>,
         ]}
       />
     </div>

@@ -30,7 +30,10 @@ export class ChunkErrorBoundary extends Component<
 
   static getDerivedStateFromError(error: Error): ChunkErrorBoundaryState {
     // Kiểm tra nếu là ChunkLoadError
-    if (error.name === "ChunkLoadError" || error.message.includes("ChunkLoadError")) {
+    if (
+      error.name === "ChunkLoadError" ||
+      error.message.includes("ChunkLoadError")
+    ) {
       return { hasError: true, error };
     }
     return { hasError: false };
@@ -38,9 +41,12 @@ export class ChunkErrorBoundary extends Component<
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error("ChunkErrorBoundary caught an error:", error, errorInfo);
-    
+
     // Nếu là ChunkLoadError, thử reload trang
-    if (error.name === "ChunkLoadError" || error.message.includes("ChunkLoadError")) {
+    if (
+      error.name === "ChunkLoadError" ||
+      error.message.includes("ChunkLoadError")
+    ) {
       // Delay một chút rồi reload
       setTimeout(() => {
         window.location.reload();
@@ -51,20 +57,22 @@ export class ChunkErrorBoundary extends Component<
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{ 
-          display: "flex", 
-          justifyContent: "center", 
-          alignItems: "center", 
-          minHeight: "50vh",
-          padding: "24px"
-        }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "50vh",
+            padding: "24px",
+          }}
+        >
           <Result
             status="warning"
             title="Lỗi tải trang"
             subTitle="Đang tải lại trang để khắc phục lỗi..."
             extra={[
-              <Button 
-                key="reload" 
+              <Button
+                key="reload"
                 type="primary"
                 icon={<ReloadOutlined />}
                 onClick={() => window.location.reload()}
@@ -72,10 +80,8 @@ export class ChunkErrorBoundary extends Component<
                 Tải lại ngay
               </Button>,
               <Link key="home" href="/">
-                <Button icon={<HomeOutlined />}>
-                  Về trang chủ
-                </Button>
-              </Link>
+                <Button icon={<HomeOutlined />}>Về trang chủ</Button>
+              </Link>,
             ]}
           />
         </div>

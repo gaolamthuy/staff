@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   // Tắt một số tính năng không cần thiết
   compress: false,
   poweredByHeader: false,
-  
+
   // Fix chunk loading issues
   webpack: (config, { isServer }) => {
     if (!isServer) {

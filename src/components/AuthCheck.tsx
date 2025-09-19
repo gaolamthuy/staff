@@ -7,7 +7,7 @@
 
 import React from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { LoadingSpinner } from "./LoadingSpinner";
+import { Spin } from "antd";
 
 interface AuthCheckProps {
   children: React.ReactNode;
@@ -26,12 +26,16 @@ export const AuthCheck: React.FC<AuthCheckProps> = ({ children }) => {
         style={{
           minHeight: "100vh",
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           background: "#f5f5f5",
         }}
       >
-        <LoadingSpinner text="Đang kiểm tra đăng nhập..." />
+        <Spin size="large" />
+        <div style={{ marginTop: "16px", color: "#666" }}>
+          Đang kiểm tra đăng nhập...
+        </div>
       </div>
     );
   }
@@ -43,12 +47,16 @@ export const AuthCheck: React.FC<AuthCheckProps> = ({ children }) => {
         style={{
           minHeight: "100vh",
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           background: "#f5f5f5",
         }}
       >
-        <LoadingSpinner text="Đang chuyển hướng..." />
+        <Spin size="large" />
+        <div style={{ marginTop: "16px", color: "#666" }}>
+          Đang chuyển hướng...
+        </div>
       </div>
     );
   }
