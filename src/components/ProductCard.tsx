@@ -12,6 +12,22 @@ import { Product } from "@/types/api";
 import { createPrintLabelUrl, toggleProductFavorite } from "@/lib/api";
 import { CustomPrintModal } from "./CustomPrintModal";
 
+// Suppress Antd warnings locally
+if (typeof window !== "undefined") {
+  const originalConsoleError = console.error;
+  console.error = (...args) => {
+    const message = args[0];
+    if (
+      typeof message === "string" &&
+      message.includes("antd") &&
+      message.includes("compatible")
+    ) {
+      return;
+    }
+    originalConsoleError.apply(console, args);
+  };
+}
+
 interface ProductCardProps {
   product: Product;
   onFavoriteChange?: (productId: string | number, isFavorite: boolean) => void;

@@ -1,42 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "@/lib/suppress-warnings"; // Import warning suppression first
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Header } from "@/components/Header";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AuthRedirect } from "@/components/AuthRedirect";
-
-// Suppress Ant Design React compatibility warning
-if (typeof window !== "undefined") {
-  const originalError = console.error;
-  const originalWarn = console.warn;
-
-  const shouldSuppress = (message: any) => {
-    if (typeof message === "string") {
-      return (
-        message.includes("antd: compatible") ||
-        message.includes("React is 16 ~ 18") ||
-        message.includes("antd v5 support React is 16 ~ 18") ||
-        message.includes("see https://u.ant.design/v5-for-19")
-      );
-    }
-    return false;
-  };
-
-  console.error = (...args) => {
-    if (shouldSuppress(args[0])) {
-      return;
-    }
-    originalError.apply(console, args);
-  };
-
-  console.warn = (...args) => {
-    if (shouldSuppress(args[0])) {
-      return;
-    }
-    originalWarn.apply(console, args);
-  };
-}
 
 const inter = Inter({ subsets: ["latin"] });
 

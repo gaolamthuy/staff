@@ -1,6 +1,9 @@
 /**
  * Trang chính - In tem sản phẩm
  * Load data từ API thực tế và hiển thị danh sách sản phẩm với filter
+ *
+ * Note: Using static export, so data is fetched at build time
+ * Fresh data is ensured through Supabase client cache-busting
  */
 
 import React from "react";
@@ -36,19 +39,10 @@ async function getProductsData(): Promise<{
       throw new Error("Invalid API response structure");
     }
 
-    // Log để debug filter
-    console.log("Total products from API:", apiData.products.length);
-    console.log(
-      "Products with unit 'kg':",
-      apiData.products.filter((p) => p.unit === "kg").length
-    );
-
     const riceProducts = apiData.products.filter(
       (product: Product) =>
         riceCategories.includes(product.categoryName) && product.unit === "kg"
     );
-
-    console.log("Filtered rice products with unit 'kg':", riceProducts.length);
 
     // Tạo danh sách categories từ sản phẩm gạo
     const availableCategories: ProductCategory[] = riceProducts.reduce(

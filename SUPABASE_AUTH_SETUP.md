@@ -128,7 +128,7 @@ USING (true);
 ### 1. Supabase Client
 
 ```typescript
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase-client";
 
 // Client tự động include auth headers
 const { data, error } = await supabase.from("kv_products").select("*");

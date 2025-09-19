@@ -13,7 +13,7 @@ import React, {
   ReactNode,
 } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase-client";
 import { User as SupabaseUser, Session } from "@supabase/supabase-js";
 
 interface User {
@@ -87,8 +87,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
-      console.log("Auth state changed:", event, session?.user?.email);
-
       if (session) {
         setSession(session);
         setUser({
@@ -143,7 +141,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       if (data.user && data.session) {
-        console.log("Login successful:", data.user.email);
         return true;
       }
 
@@ -166,9 +163,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if (error) {
         console.error("Logout error:", error.message);
-      } else {
-        console.log("Logout successful");
-        // Auth state change listener will handle the rest
       }
     } catch (error) {
       console.error("Logout error in AuthContext:", error);
