@@ -87,13 +87,11 @@ export default function RootLayout({
       </head>
       <body className={inter.className} suppressHydrationWarning>
         <ErrorBoundary>
-          <ChunkErrorBoundary>
-            <AuthProvider>
-              <AuthRedirect />
-              <Header />
-              <main style={{ padding: "24px" }}>{children}</main>
-            </AuthProvider>
-          </ChunkErrorBoundary>
+          <AuthProvider>
+            <AuthRedirect />
+            <Header />
+            <main style={{ padding: "24px" }}>{children}</main>
+          </AuthProvider>
         </ErrorBoundary>
       </body>
     </html>
