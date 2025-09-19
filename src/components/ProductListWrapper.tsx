@@ -7,6 +7,7 @@
 
 import React, { useState, useEffect } from "react";
 import { ProductList } from "./ProductList";
+import { UpdateButton } from "./UpdateButton";
 import { Product, ProductCategory } from "@/types/api";
 import { fetchProductsData } from "@/lib/api";
 
@@ -137,13 +138,92 @@ export const ProductListWrapper: React.FC<ProductListWrapperProps> = ({
     );
   };
 
+  /**
+   * Handle update success
+   * Refresh data after successful update
+   */
+  const handleUpdateSuccess = async () => {
+    try {
+      setIsRefreshing(true);
+      const freshData = await fetchProductsData();
+      
+      // Filter rice products like in the main page
+      const riceCategories = [
+        "Gạo nở",
+        "Gạo dẻo", 
+        "Lúa - Gạo Lứt",
+        "Nếp",
+        "Gạo chính hãng",
+        "Tấm",
+      ];
+      
+      const riceProducts = freshData.products.filter(
+        (product: Product) =>
+          riceCategories.includes(product.categoryName) && product.unit === "kg"
+      );
+
+      // Generate categories from products (same logic as main page)
+      const availableCategories: ProductCategory[] = riceProducts.reduce(
+        (categories: ProductCategory[], product: Product) => {
+          const existingCategory = categories.find(
+            (cat) => cat.categoryName === product.categoryName
+          );
+
+          if (!existingCategory) {
+            categories.push({
+              categoryId:
+                typeof product.id === "string"
+                  ? parseInt(product.id)
+                  : product.id,
+              categoryName: product.categoryName,
+              retailerId: 744514,
+              modifiedDate: new Date().toISOString(),
+              createdDate: new Date().toISOString(),
+              rank: categories.length + 1,
+              glt: {
+                glt_is_active: true,
+                glt_color_border: getCategoryColor(product.categoryName),
+              },
+            });
+          }
+
+          return categories;
+        },
+        []
+      );
+      
+      setLocalProducts(riceProducts);
+      setLocalCategories(availableCategories);
+    } catch (error) {
+      console.error("Error refreshing data after update:", error);
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
   return (
-    <ProductList
-      products={localProducts}
-      categories={localCategories}
-      isLoading={isLoading || isRefreshing}
-      error={error}
-      onFavoriteChange={handleFavoriteChange}
-    />
+    <div>
+      {/* Update Button */}
+      <div style={{ 
+        display: "flex", 
+        justifyContent: "space-between", 
+        alignItems: "center",
+        marginBottom: "16px",
+        padding: "0 16px"
+      }}>
+        <h2 style={{ margin: 0, fontSize: "18px", fontWeight: "600" }}>
+          Danh sách sản phẩm
+        </h2>
+        <UpdateButton onUpdateSuccess={handleUpdateSuccess} />
+      </div>
+      
+      <ProductList
+        products={localProducts}
+        categories={localCategories}
+        isLoading={isLoading || isRefreshing}
+        error={error}
+        onFavoriteChange={handleFavoriteChange}
+      />
+    </div>
   );
 };

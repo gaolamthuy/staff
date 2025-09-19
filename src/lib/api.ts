@@ -96,3 +96,66 @@ export async function toggleProductFavorite(
     );
   }
 }
+
+/**
+ * Cập nhật danh sách sản phẩm từ webhook
+ * @returns Promise<boolean> - Thành công hay không
+ */
+export async function updateProducts(): Promise<boolean> {
+  try {
+    const webhookUrl = process.env.NEXT_PUBLIC_WEBHOOK_URL;
+    const basicAuth = process.env.NEXT_PUBLIC_WEBHOOK_BASIC_AUTH;
+
+    if (!webhookUrl) {
+      throw new ApiError(
+        "Webhook URL không được cấu hình",
+        500,
+        "MISSING_WEBHOOK_CONFIG"
+      );
+    }
+
+    if (!basicAuth) {
+      throw new ApiError(
+        "Basic Auth không được cấu hình",
+        500,
+        "MISSING_BASIC_AUTH_CONFIG"
+      );
+    }
+
+    // Encode basic auth
+    const encodedAuth = btoa(basicAuth);
+
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Basic ${encodedAuth}`,
+      },
+      body: JSON.stringify({
+        type: "products",
+      }),
+    });
+
+    if (!response.ok) {
+      throw new ApiError(
+        `Webhook request failed: ${response.status} ${response.statusText}`,
+        response.status,
+        "WEBHOOK_ERROR"
+      );
+    }
+
+    return true;
+  } catch (error) {
+    if (error instanceof ApiError) {
+      throw error;
+    }
+
+    throw new ApiError(
+      `Lỗi khi cập nhật sản phẩm: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`,
+      500,
+      "UPDATE_ERROR"
+    );
+  }
+}
