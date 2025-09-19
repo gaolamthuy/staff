@@ -203,23 +203,21 @@ export const ProductListWrapper: React.FC<ProductListWrapperProps> = ({
 
   return (
     <div>
-      {/* Update Button */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "16px",
-          padding: "0 16px",
-        }}
-      >
-        <h2 style={{ margin: 0, fontSize: "18px", fontWeight: "600" }}>
-          Danh sách sản phẩm
-        </h2>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        {/* Update Button */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+            marginBottom: "16px",
+            padding: "0 16px",
+          }}
+        >
+          <h2 style={{ margin: 0, fontSize: "18px", fontWeight: "600" }}>
+            Danh sách sản phẩm
+          </h2>
           <UpdateButton onUpdateSuccess={handleUpdateSuccess} />
         </div>
-      </div>
 
       <ProductList
         products={localProducts}
