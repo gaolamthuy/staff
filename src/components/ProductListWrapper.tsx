@@ -50,10 +50,70 @@ export const ProductListWrapper: React.FC<ProductListWrapperProps> = ({
    * Refresh data from Supabase to get fresh data
    * This runs on client-side to ensure fresh data even with static export
    */
-  // Tắt hoàn toàn việc refresh data để giữ nguyên favorite states
-  // useEffect(() => {
-  //   // Không refresh data nữa để tránh mất favorite states
-  // }, []);
+  useEffect(() => {
+    const refreshData = async () => {
+      try {
+        setIsRefreshing(true);
+        const freshData = await fetchProductsData();
+
+        // Filter rice products like in the main page
+        const riceCategories = [
+          "Gạo nở",
+          "Gạo dẻo",
+          "Lúa - Gạo Lứt",
+          "Nếp",
+          "Gạo chính hãng",
+          "Tấm",
+        ];
+
+        const riceProducts = freshData.products.filter(
+          (product: Product) =>
+            riceCategories.includes(product.categoryName) &&
+            product.unit === "kg"
+        );
+
+        // Generate categories from products (same logic as main page)
+        const availableCategories: ProductCategory[] = riceProducts.reduce(
+          (categories: ProductCategory[], product: Product) => {
+            const existingCategory = categories.find(
+              (cat) => cat.categoryName === product.categoryName
+            );
+
+            if (!existingCategory) {
+              categories.push({
+                categoryId:
+                  typeof product.id === "string"
+                    ? parseInt(product.id)
+                    : product.id,
+                categoryName: product.categoryName,
+                retailerId: 744514,
+                modifiedDate: new Date().toISOString(),
+                createdDate: new Date().toISOString(),
+                rank: categories.length + 1,
+                glt: {
+                  glt_is_active: true,
+                  glt_color_border: getCategoryColor(product.categoryName),
+                },
+              });
+            }
+
+            return categories;
+          },
+          []
+        );
+
+        setLocalProducts(riceProducts);
+        setLocalCategories(availableCategories);
+      } catch (error) {
+        console.error("Error refreshing data:", error);
+      } finally {
+        setIsRefreshing(false);
+      }
+    };
+
+    // Refresh data on mount to ensure fresh data
+    refreshData();
+  }, []);
 
   /**
    * Handle favorite change
@@ -80,12 +140,65 @@ export const ProductListWrapper: React.FC<ProductListWrapperProps> = ({
 
   /**
    * Handle update success
-   * Don't refresh data to preserve favorite states
+   * Refresh data after successful update
    */
-  const handleUpdateSuccess = () => {
-    // Không refresh data để giữ nguyên favorite states
-    // Chỉ hiển thị success message
-    console.log("Update successful - keeping current favorite states");
+  const handleUpdateSuccess = async () => {
+    try {
+      setIsRefreshing(true);
+      const freshData = await fetchProductsData();
+
+      // Filter rice products like in the main page
+      const riceCategories = [
+        "Gạo nở",
+        "Gạo dẻo",
+        "Lúa - Gạo Lứt",
+        "Nếp",
+        "Gạo chính hãng",
+        "Tấm",
+      ];
+
+      const riceProducts = freshData.products.filter(
+        (product: Product) =>
+          riceCategories.includes(product.categoryName) && product.unit === "kg"
+      );
+
+      // Generate categories from products (same logic as main page)
+      const availableCategories: ProductCategory[] = riceProducts.reduce(
+        (categories: ProductCategory[], product: Product) => {
+          const existingCategory = categories.find(
+            (cat) => cat.categoryName === product.categoryName
+          );
+
+          if (!existingCategory) {
+            categories.push({
+              categoryId:
+                typeof product.id === "string"
+                  ? parseInt(product.id)
+                  : product.id,
+              categoryName: product.categoryName,
+              retailerId: 744514,
+              modifiedDate: new Date().toISOString(),
+              createdDate: new Date().toISOString(),
+              rank: categories.length + 1,
+              glt: {
+                glt_is_active: true,
+                glt_color_border: getCategoryColor(product.categoryName),
+              },
+            });
+          }
+
+          return categories;
+        },
+        []
+      );
+
+      setLocalProducts(riceProducts);
+      setLocalCategories(availableCategories);
+    } catch (error) {
+      console.error("Error refreshing data after update:", error);
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
   return (

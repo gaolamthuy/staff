@@ -99,16 +99,12 @@ export async function toggleProductFavorite(
 
 /**
  * Cập nhật danh sách sản phẩm từ webhook
- * @returns Promise<boolean> - Thành công hay không
+ * @returns Promise<{success: boolean, message: string}> - Kết quả và message từ server
  */
-export async function updateProducts(): Promise<boolean> {
+export async function updateProducts(): Promise<{success: boolean, message: string}> {
   try {
-    console.log("🔧 updateProducts called");
     const webhookUrl = process.env.NEXT_PUBLIC_WEBHOOK_URL;
     const basicAuth = process.env.NEXT_PUBLIC_WEBHOOK_BASIC_AUTH;
-
-    console.log("🌐 Webhook URL:", webhookUrl);
-    console.log("🔐 Basic Auth configured:", !!basicAuth);
 
     if (!webhookUrl) {
       throw new ApiError(
@@ -128,12 +124,8 @@ export async function updateProducts(): Promise<boolean> {
 
     // Encode basic auth
     const encodedAuth = btoa(basicAuth);
-    const fullUrl = webhookUrl + "/sync-kiotviet-data";
 
-    console.log("📡 Making request to:", fullUrl);
-    console.log("📦 Request body:", { type: "products" });
-
-    const response = await fetch(fullUrl, {
+    const response = await fetch(webhookUrl + "/sync-kiotviet-data", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -144,9 +136,6 @@ export async function updateProducts(): Promise<boolean> {
       }),
     });
 
-    console.log("📊 Response status:", response.status);
-    console.log("📊 Response ok:", response.ok);
-
     if (!response.ok) {
       throw new ApiError(
         `Webhook request failed: ${response.status} ${response.statusText}`,
@@ -155,22 +144,20 @@ export async function updateProducts(): Promise<boolean> {
       );
     }
 
-    // Lấy response message từ server
+    // Lấy response text từ server
     let responseMessage = "Cập nhật thành công!";
     try {
-      const responseData = await response.json();
-      if (responseData.message) {
-        responseMessage = responseData.message;
+      const responseText = await response.text();
+      if (responseText) {
+        responseMessage = responseText;
       }
     } catch (e) {
-      // Nếu không parse được JSON, sử dụng status text
+      // Nếu không parse được text, sử dụng status text
       responseMessage = response.statusText || "Cập nhật thành công!";
     }
 
-    console.log("✅ Update successful! Message:", responseMessage);
     return { success: true, message: responseMessage };
   } catch (error) {
-    console.error("❌ Update error:", error);
     if (error instanceof ApiError) {
       throw error;
     }
