@@ -155,8 +155,20 @@ export async function updateProducts(): Promise<boolean> {
       );
     }
 
-    console.log("✅ Update successful!");
-    return true;
+    // Lấy response message từ server
+    let responseMessage = "Cập nhật thành công!";
+    try {
+      const responseData = await response.json();
+      if (responseData.message) {
+        responseMessage = responseData.message;
+      }
+    } catch (e) {
+      // Nếu không parse được JSON, sử dụng status text
+      responseMessage = response.statusText || "Cập nhật thành công!";
+    }
+
+    console.log("✅ Update successful! Message:", responseMessage);
+    return { success: true, message: responseMessage };
   } catch (error) {
     console.error("❌ Update error:", error);
     if (error instanceof ApiError) {

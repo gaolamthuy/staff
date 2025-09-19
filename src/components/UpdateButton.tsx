@@ -18,25 +18,29 @@ export const UpdateButton: React.FC<UpdateButtonProps> = ({
     setIsUpdating(true);
     try {
       console.log("📡 Calling updateProducts...");
-      await updateProducts();
+      const result = await updateProducts();
       console.log("✅ Update successful, showing toast...");
-      message.success("✅ Cập nhật sản phẩm thành công!");
       
-      // Sử dụng notification hook
+      // Sử dụng message từ HTTP response
+      const responseMessage = result.message || "Cập nhật thành công!";
+      message.success(`✅ ${responseMessage}`);
+      
+      // Sử dụng notification hook với response message
       api.success({
         message: "Cập nhật thành công!",
-        description: "Danh sách sản phẩm đã được cập nhật từ server.",
+        description: responseMessage,
         duration: 3,
         placement: "topRight",
       });
 
-      if (onUpdateSuccess) {
-        onUpdateSuccess();
-      }
+      // Không gọi onUpdateSuccess để tránh refresh data
+      // if (onUpdateSuccess) {
+      //   onUpdateSuccess();
+      // }
     } catch (error) {
       console.error("❌ Update error:", error);
       message.error("❌ Có lỗi xảy ra khi cập nhật sản phẩm");
-      
+
       // Sử dụng notification hook
       api.error({
         message: "Cập nhật thất bại!",
