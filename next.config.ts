@@ -11,6 +11,19 @@ const nextConfig: NextConfig = {
   // Tắt một số tính năng không cần thiết
   compress: false,
   poweredByHeader: false,
+  
+  // Fix chunk loading issues
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      };
+    }
+    return config;
+  },
 };
 
 export default nextConfig;

@@ -5,7 +5,11 @@
 
 import React from "react";
 import { Card, Row, Col, Button, Typography } from "antd";
-import { PrinterOutlined, ShoppingCartOutlined, FileTextOutlined } from "@ant-design/icons";
+import {
+  PrinterOutlined,
+  ShoppingCartOutlined,
+  FileTextOutlined,
+} from "@ant-design/icons";
 import { AuthCheck } from "@/components/AuthCheck";
 import Link from "next/link";
 
@@ -100,13 +104,22 @@ export default function HomePage() {
 
         {/* Quick Stats */}
         <div style={{ marginTop: "48px" }}>
-          <Title level={2} style={{ textAlign: "center", marginBottom: "32px" }}>
+          <Title
+            level={2}
+            style={{ textAlign: "center", marginBottom: "32px" }}
+          >
             Thống kê nhanh
           </Title>
           <Row gutter={[16, 16]}>
             <Col xs={12} sm={6}>
               <Card style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "24px", fontWeight: "bold", color: "#52c41a" }}>
+                <div
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: "bold",
+                    color: "#52c41a",
+                  }}
+                >
                   30+
                 </div>
                 <div style={{ color: "#666" }}>Sản phẩm gạo</div>
@@ -114,7 +127,13 @@ export default function HomePage() {
             </Col>
             <Col xs={12} sm={6}>
               <Card style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "24px", fontWeight: "bold", color: "#1890ff" }}>
+                <div
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: "bold",
+                    color: "#1890ff",
+                  }}
+                >
                   6
                 </div>
                 <div style={{ color: "#666" }}>Danh mục</div>
@@ -122,7 +141,13 @@ export default function HomePage() {
             </Col>
             <Col xs={12} sm={6}>
               <Card style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "24px", fontWeight: "bold", color: "#722ed1" }}>
+                <div
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: "bold",
+                    color: "#722ed1",
+                  }}
+                >
                   2
                 </div>
                 <div style={{ color: "#666" }}>Loại in tem</div>
@@ -130,7 +155,13 @@ export default function HomePage() {
             </Col>
             <Col xs={12} sm={6}>
               <Card style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "24px", fontWeight: "bold", color: "#fa8c16" }}>
+                <div
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: "bold",
+                    color: "#fa8c16",
+                  }}
+                >
                   24/7
                 </div>
                 <div style={{ color: "#666" }}>Hỗ trợ</div>

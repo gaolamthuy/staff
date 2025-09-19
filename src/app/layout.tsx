@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "@/lib/suppress-warnings"; // Import warning suppression first
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { ChunkErrorBoundary } from "@/components/ChunkErrorBoundary";
 import { Header } from "@/components/Header";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AuthRedirect } from "@/components/AuthRedirect";
@@ -86,11 +87,13 @@ export default function RootLayout({
       </head>
       <body className={inter.className} suppressHydrationWarning>
         <ErrorBoundary>
-          <AuthProvider>
-            <AuthRedirect />
-            <Header />
-            <main style={{ padding: "24px" }}>{children}</main>
-          </AuthProvider>
+          <ChunkErrorBoundary>
+            <AuthProvider>
+              <AuthRedirect />
+              <Header />
+              <main style={{ padding: "24px" }}>{children}</main>
+            </AuthProvider>
+          </ChunkErrorBoundary>
         </ErrorBoundary>
       </body>
     </html>

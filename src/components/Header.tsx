@@ -153,7 +153,10 @@ export const Header: React.FC = () => {
                 key: "retail",
                 icon: <PrinterOutlined />,
                 label: (
-                  <Link href="/print/label-retail" style={{ textDecoration: "none", color: "inherit" }}>
+                  <Link
+                    href="/print/label-retail"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
                     In tem bán lẻ
                   </Link>
                 ),
@@ -162,7 +165,10 @@ export const Header: React.FC = () => {
                 key: "purchaseorder",
                 icon: <FileTextOutlined />,
                 label: (
-                  <Link href="/print/label-purchaseorder" style={{ textDecoration: "none", color: "inherit" }}>
+                  <Link
+                    href="/print/label-purchaseorder"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
                     In tem nhập hàng
                   </Link>
                 ),
