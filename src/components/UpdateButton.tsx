@@ -23,7 +23,7 @@ export const UpdateButton: React.FC<UpdateButtonProps> = ({
         message: "Cập nhật thành công!",
         description: result.message,
         duration: 4,
-        placement: "topRight",
+        placement: "topLeft",
       });
 
       if (onUpdateSuccess) {
@@ -37,7 +37,7 @@ export const UpdateButton: React.FC<UpdateButtonProps> = ({
         message: "Cập nhật thất bại!",
         description: "Có lỗi xảy ra khi cập nhật sản phẩm. Vui lòng thử lại.",
         duration: 4,
-        placement: "topRight",
+        placement: "topLeft",
       });
     } finally {
       setIsUpdating(false);
