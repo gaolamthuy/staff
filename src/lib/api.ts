@@ -129,7 +129,7 @@ export async function updateProducts(): Promise<boolean> {
     // Encode basic auth
     const encodedAuth = btoa(basicAuth);
     const fullUrl = webhookUrl + "/sync-kiotviet-data";
-    
+
     console.log("📡 Making request to:", fullUrl);
     console.log("📦 Request body:", { type: "products" });
 

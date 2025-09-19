@@ -50,84 +50,10 @@ export const ProductListWrapper: React.FC<ProductListWrapperProps> = ({
    * Refresh data from Supabase to get fresh data
    * This runs on client-side to ensure fresh data even with static export
    */
-  useEffect(() => {
-    const refreshData = async () => {
-      try {
-        setIsRefreshing(true);
-        const freshData = await fetchProductsData();
-
-        // Filter rice products like in the main page
-        const riceCategories = [
-          "Gạo nở",
-          "Gạo dẻo",
-          "Lúa - Gạo Lứt",
-          "Nếp",
-          "Gạo chính hãng",
-          "Tấm",
-        ];
-
-        const riceProducts = freshData.products.filter(
-          (product: Product) =>
-            riceCategories.includes(product.categoryName) &&
-            product.unit === "kg"
-        );
-
-        // Generate categories from products (same logic as main page)
-        const availableCategories: ProductCategory[] = riceProducts.reduce(
-          (categories: ProductCategory[], product: Product) => {
-            const existingCategory = categories.find(
-              (cat) => cat.categoryName === product.categoryName
-            );
-
-            if (!existingCategory) {
-              categories.push({
-                categoryId:
-                  typeof product.id === "string"
-                    ? parseInt(product.id)
-                    : product.id,
-                categoryName: product.categoryName,
-                retailerId: 744514,
-                modifiedDate: new Date().toISOString(),
-                createdDate: new Date().toISOString(),
-                rank: categories.length + 1,
-                glt: {
-                  glt_is_active: true,
-                  glt_color_border: getCategoryColor(product.categoryName),
-                },
-              });
-            }
-
-            return categories;
-          },
-          []
-        );
-
-        // Merge favorite states từ local state để không mất favorite
-        const mergedProducts = riceProducts.map((freshProduct) => {
-          const existingProduct = localProducts.find(
-            (p) => p.id === freshProduct.id
-          );
-          return {
-            ...freshProduct,
-            glt: {
-              ...freshProduct.glt,
-              glt_labelprint_favorite: existingProduct?.glt?.glt_labelprint_favorite || freshProduct.glt?.glt_labelprint_favorite || false,
-            },
-          };
-        });
-
-        setLocalProducts(mergedProducts);
-        setLocalCategories(availableCategories);
-      } catch (error) {
-        console.error("Error refreshing data:", error);
-      } finally {
-        setIsRefreshing(false);
-      }
-    };
-
-    // Refresh data on mount to ensure fresh data
-    refreshData();
-  }, []);
+  // Tắt hoàn toàn việc refresh data để giữ nguyên favorite states
+  // useEffect(() => {
+  //   // Không refresh data nữa để tránh mất favorite states
+  // }, []);
 
   /**
    * Handle favorite change
