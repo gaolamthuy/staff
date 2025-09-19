@@ -125,7 +125,7 @@ export async function updateProducts(): Promise<boolean> {
     // Encode basic auth
     const encodedAuth = btoa(basicAuth);
 
-    const response = await fetch(webhookUrl, {
+    const response = await fetch(webhookUrl + "/sync-kiotviet-data", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

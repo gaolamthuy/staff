@@ -16,14 +16,26 @@ export const UpdateButton: React.FC<UpdateButtonProps> = ({
     setIsUpdating(true);
     try {
       await updateProducts();
-      message.success("Cập nhật sản phẩm thành công!");
+      message.success({
+        content: "✅ Cập nhật sản phẩm thành công!",
+        duration: 3,
+        style: {
+          marginTop: '20px',
+        },
+      });
       
       if (onUpdateSuccess) {
         onUpdateSuccess();
       }
     } catch (error) {
       console.error("Update error:", error);
-      message.error("Có lỗi xảy ra khi cập nhật sản phẩm");
+      message.error({
+        content: "❌ Có lỗi xảy ra khi cập nhật sản phẩm",
+        duration: 4,
+        style: {
+          marginTop: '20px',
+        },
+      });
     } finally {
       setIsUpdating(false);
     }
