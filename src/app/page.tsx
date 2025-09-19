@@ -1,131 +1,144 @@
 /**
- * Trang chính - In tem sản phẩm
- * Load data từ API thực tế và hiển thị danh sách sản phẩm với filter
- *
- * Note: Using static export, so data is fetched at build time
- * Fresh data is ensured through Supabase client cache-busting
+ * Trang chủ - Dashboard chính
+ * Hiển thị menu navigation và thông tin tổng quan
  */
 
 import React from "react";
-import { ProductListWrapper } from "@/components/ProductListWrapper";
-import { Product, ProductCategory, ApiResponse } from "@/types/api";
+import { Card, Row, Col, Button, Typography } from "antd";
+import { PrinterOutlined, ShoppingCartOutlined, FileTextOutlined } from "@ant-design/icons";
 import { AuthCheck } from "@/components/AuthCheck";
-import { fetchProductsData } from "@/lib/api";
+import Link from "next/link";
+
+const { Title, Paragraph } = Typography;
 
 /**
- * Lấy dữ liệu sản phẩm từ API
- * Fetch trực tiếp từ external API để tương thích với static export
+ * Trang chủ - Dashboard
  */
-async function getProductsData(): Promise<{
-  products: Product[];
-  categories: ProductCategory[];
-  error?: string;
-}> {
-  try {
-    const apiData = await fetchProductsData();
-
-    // Lọc sản phẩm gạo từ danh sách sản phẩm
-    const riceCategories = [
-      "Gạo nở",
-      "Gạo dẻo",
-      "Lúa - Gạo Lứt",
-      "Nếp",
-      "Gạo chính hãng",
-      "Tấm",
-    ];
-
-    // Đảm bảo apiData có cấu trúc đúng
-    if (!apiData || !apiData.products || !Array.isArray(apiData.products)) {
-      throw new Error("Invalid API response structure");
-    }
-
-    const riceProducts = apiData.products.filter(
-      (product: Product) =>
-        riceCategories.includes(product.categoryName) && product.unit === "kg"
-    );
-
-    // Tạo danh sách categories từ sản phẩm gạo
-    const availableCategories: ProductCategory[] = riceProducts.reduce(
-      (categories: ProductCategory[], product: Product) => {
-        const existingCategory = categories.find(
-          (cat) => cat.categoryName === product.categoryName
-        );
-
-        if (!existingCategory) {
-          categories.push({
-            categoryId:
-              typeof product.id === "string"
-                ? parseInt(product.id)
-                : product.id,
-            categoryName: product.categoryName,
-            retailerId: 744514,
-            modifiedDate: new Date().toISOString(),
-            createdDate: new Date().toISOString(),
-            rank: categories.length + 1,
-            glt: {
-              glt_is_active: true,
-              glt_color_border: getCategoryColor(product.categoryName),
-            },
-          });
-        }
-
-        return categories;
-      },
-      []
-    );
-
-    return {
-      products: riceProducts,
-      categories: availableCategories,
-    };
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    return {
-      products: [],
-      categories: [],
-      error: "Có lỗi xảy ra khi tải dữ liệu sản phẩm",
-    };
-  }
-}
-
-/**
- * Lấy màu cho category
- */
-function getCategoryColor(categoryName: string): string {
-  const colorMap: { [key: string]: string } = {
-    "Gạo nở": "#ff6b6b",
-    "Gạo dẻo": "#4ecdc4",
-    "Lúa - Gạo Lứt": "#45b7d1",
-    Nếp: "#96ceb4",
-    "Gạo chính hãng": "#feca57",
-    Tấm: "#ff9ff3",
-  };
-  return colorMap[categoryName] || "#95a5a6";
-}
-
-/**
- * Trang chủ - Hiển thị danh sách sản phẩm
- */
-export default async function HomePage() {
-  const { products, categories, error } = await getProductsData();
-
+export default function HomePage() {
   return (
     <AuthCheck>
-      {error ? (
-        <div style={{ textAlign: "center", padding: "50px" }}>
-          <h2>Lỗi tải dữ liệu</h2>
-          <p>{error}</p>
+      <div style={{ padding: "24px", maxWidth: "1200px", margin: "0 auto" }}>
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: "48px" }}>
+          <Title level={1} style={{ color: "#1890ff", marginBottom: "16px" }}>
+            🌾 Gạo Lâm Thúy - Hệ thống In tem
+          </Title>
+          <Paragraph style={{ fontSize: "18px", color: "#666" }}>
+            Chào mừng bạn đến với hệ thống quản lý và in tem sản phẩm
+          </Paragraph>
         </div>
-      ) : (
-        <div>
-          <ProductListWrapper
-            products={products}
-            categories={categories}
-            isLoading={false}
-            error={undefined}
-          />
+
+        {/* Menu Cards */}
+        <Row gutter={[24, 24]}>
+          <Col xs={24} sm={12} lg={8}>
+            <Card
+              hoverable
+              style={{ height: "100%", textAlign: "center" }}
+              bodyStyle={{ padding: "32px" }}
+            >
+              <div style={{ fontSize: "48px", marginBottom: "16px" }}>
+                <PrinterOutlined style={{ color: "#52c41a" }} />
+              </div>
+              <Title level={3} style={{ marginBottom: "16px" }}>
+                In tem bán lẻ
+              </Title>
+              <Paragraph style={{ color: "#666", marginBottom: "24px" }}>
+                In tem cho sản phẩm bán lẻ với thông tin giá, mã sản phẩm
+              </Paragraph>
+              <Link href="/print/label-retail">
+                <Button type="primary" size="large" block>
+                  Truy cập
+                </Button>
+              </Link>
+            </Card>
+          </Col>
+
+          <Col xs={24} sm={12} lg={8}>
+            <Card
+              hoverable
+              style={{ height: "100%", textAlign: "center" }}
+              bodyStyle={{ padding: "32px" }}
+            >
+              <div style={{ fontSize: "48px", marginBottom: "16px" }}>
+                <FileTextOutlined style={{ color: "#1890ff" }} />
+              </div>
+              <Title level={3} style={{ marginBottom: "16px" }}>
+                In tem nhập hàng
+              </Title>
+              <Paragraph style={{ color: "#666", marginBottom: "24px" }}>
+                In tem cho sản phẩm nhập hàng với thông tin chi tiết
+              </Paragraph>
+              <Link href="/print/label-purchaseorder">
+                <Button type="primary" size="large" block>
+                  Truy cập
+                </Button>
+              </Link>
+            </Card>
+          </Col>
+
+          <Col xs={24} sm={12} lg={8}>
+            <Card
+              hoverable
+              style={{ height: "100%", textAlign: "center" }}
+              bodyStyle={{ padding: "32px" }}
+            >
+              <div style={{ fontSize: "48px", marginBottom: "16px" }}>
+                <ShoppingCartOutlined style={{ color: "#722ed1" }} />
+              </div>
+              <Title level={3} style={{ marginBottom: "16px" }}>
+                Quản lý sản phẩm
+              </Title>
+              <Paragraph style={{ color: "#666", marginBottom: "24px" }}>
+                Quản lý danh sách sản phẩm, cập nhật thông tin
+              </Paragraph>
+              <Button type="default" size="large" block disabled>
+                Sắp có
+              </Button>
+            </Card>
+          </Col>
+        </Row>
+
+        {/* Quick Stats */}
+        <div style={{ marginTop: "48px" }}>
+          <Title level={2} style={{ textAlign: "center", marginBottom: "32px" }}>
+            Thống kê nhanh
+          </Title>
+          <Row gutter={[16, 16]}>
+            <Col xs={12} sm={6}>
+              <Card style={{ textAlign: "center" }}>
+                <div style={{ fontSize: "24px", fontWeight: "bold", color: "#52c41a" }}>
+                  30+
+                </div>
+                <div style={{ color: "#666" }}>Sản phẩm gạo</div>
+              </Card>
+            </Col>
+            <Col xs={12} sm={6}>
+              <Card style={{ textAlign: "center" }}>
+                <div style={{ fontSize: "24px", fontWeight: "bold", color: "#1890ff" }}>
+                  6
+                </div>
+                <div style={{ color: "#666" }}>Danh mục</div>
+              </Card>
+            </Col>
+            <Col xs={12} sm={6}>
+              <Card style={{ textAlign: "center" }}>
+                <div style={{ fontSize: "24px", fontWeight: "bold", color: "#722ed1" }}>
+                  2
+                </div>
+                <div style={{ color: "#666" }}>Loại in tem</div>
+              </Card>
+            </Col>
+            <Col xs={12} sm={6}>
+              <Card style={{ textAlign: "center" }}>
+                <div style={{ fontSize: "24px", fontWeight: "bold", color: "#fa8c16" }}>
+                  24/7
+                </div>
+                <div style={{ color: "#666" }}>Hỗ trợ</div>
+              </Card>
+            </Col>
+          </Row>
         </div>
-      )}
+      </div>
     </AuthCheck>
   );
 }

@@ -6,15 +6,19 @@
 "use client";
 
 import React from "react";
-import { Button, Dropdown } from "antd";
+import { Button, Dropdown, Menu } from "antd";
 import {
   SunOutlined,
   MoonOutlined,
   UserOutlined,
   LogoutOutlined,
+  PrinterOutlined,
+  FileTextOutlined,
+  HomeOutlined,
 } from "@ant-design/icons";
 import { useTheme } from "@/hooks/useTheme";
 import { useAuth } from "@/contexts/AuthContext";
+import Link from "next/link";
 
 export const Header: React.FC = () => {
   const { isDarkMode, toggleTheme, isLoaded } = useTheme();
@@ -123,7 +127,8 @@ export const Header: React.FC = () => {
         className="header-nav"
         style={{ display: "flex", alignItems: "center", gap: "16px" }}
       >
-        <a
+        {/* Home Link */}
+        <Link
           href="/"
           style={{
             textDecoration: "none",
@@ -131,10 +136,55 @@ export const Header: React.FC = () => {
             fontSize: "14px",
             fontWeight: "500",
             transition: "color 0.2s",
+            display: "flex",
+            alignItems: "center",
+            gap: "6px",
           }}
         >
+          <HomeOutlined />
           Trang chủ
-        </a>
+        </Link>
+
+        {/* Print Menu */}
+        <Dropdown
+          menu={{
+            items: [
+              {
+                key: "retail",
+                icon: <PrinterOutlined />,
+                label: (
+                  <Link href="/print/label-retail" style={{ textDecoration: "none", color: "inherit" }}>
+                    In tem bán lẻ
+                  </Link>
+                ),
+              },
+              {
+                key: "purchaseorder",
+                icon: <FileTextOutlined />,
+                label: (
+                  <Link href="/print/label-purchaseorder" style={{ textDecoration: "none", color: "inherit" }}>
+                    In tem nhập hàng
+                  </Link>
+                ),
+              },
+            ],
+          }}
+          placement="bottomLeft"
+          trigger={["hover"]}
+        >
+          <Button
+            type="text"
+            style={{
+              color: "#666",
+              fontSize: "14px",
+              fontWeight: "500",
+              height: "auto",
+              padding: "4px 8px",
+            }}
+          >
+            In tem
+          </Button>
+        </Dropdown>
 
         {/* Theme Toggle Button */}
         <Button
