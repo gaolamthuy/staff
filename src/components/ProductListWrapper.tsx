@@ -216,7 +216,9 @@ export const ProductListWrapper: React.FC<ProductListWrapperProps> = ({
         <h2 style={{ margin: 0, fontSize: "18px", fontWeight: "600" }}>
           Danh sách sản phẩm
         </h2>
-        <UpdateButton onUpdateSuccess={handleUpdateSuccess} />
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <UpdateButton onUpdateSuccess={handleUpdateSuccess} />
+        </div>
       </div>
 
       <ProductList
