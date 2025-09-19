@@ -103,8 +103,12 @@ export async function toggleProductFavorite(
  */
 export async function updateProducts(): Promise<boolean> {
   try {
+    console.log("🔧 updateProducts called");
     const webhookUrl = process.env.NEXT_PUBLIC_WEBHOOK_URL;
     const basicAuth = process.env.NEXT_PUBLIC_WEBHOOK_BASIC_AUTH;
+
+    console.log("🌐 Webhook URL:", webhookUrl);
+    console.log("🔐 Basic Auth configured:", !!basicAuth);
 
     if (!webhookUrl) {
       throw new ApiError(
@@ -124,8 +128,12 @@ export async function updateProducts(): Promise<boolean> {
 
     // Encode basic auth
     const encodedAuth = btoa(basicAuth);
+    const fullUrl = webhookUrl + "/sync-kiotviet-data";
+    
+    console.log("📡 Making request to:", fullUrl);
+    console.log("📦 Request body:", { type: "products" });
 
-    const response = await fetch(webhookUrl + "/sync-kiotviet-data", {
+    const response = await fetch(fullUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -136,6 +144,9 @@ export async function updateProducts(): Promise<boolean> {
       }),
     });
 
+    console.log("📊 Response status:", response.status);
+    console.log("📊 Response ok:", response.ok);
+
     if (!response.ok) {
       throw new ApiError(
         `Webhook request failed: ${response.status} ${response.statusText}`,
@@ -144,8 +155,10 @@ export async function updateProducts(): Promise<boolean> {
       );
     }
 
+    console.log("✅ Update successful!");
     return true;
   } catch (error) {
+    console.error("❌ Update error:", error);
     if (error instanceof ApiError) {
       throw error;
     }

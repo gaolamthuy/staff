@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, message } from "antd";
+import { Button, message, notification } from "antd";
 import { ReloadOutlined } from "@ant-design/icons";
 import { updateProducts } from "@/lib/api";
 
@@ -13,28 +13,35 @@ export const UpdateButton: React.FC<UpdateButtonProps> = ({
   const [isUpdating, setIsUpdating] = useState(false);
 
   const handleUpdate = async () => {
+    console.log("🔄 Starting update...");
     setIsUpdating(true);
     try {
+      console.log("📡 Calling updateProducts...");
       await updateProducts();
-      message.success({
-        content: "✅ Cập nhật sản phẩm thành công!",
+      console.log("✅ Update successful, showing toast...");
+      message.success("✅ Cập nhật sản phẩm thành công!");
+      
+      // Thêm notification để đảm bảo user thấy
+      notification.success({
+        message: "Cập nhật thành công!",
+        description: "Danh sách sản phẩm đã được cập nhật từ server.",
         duration: 3,
-        style: {
-          marginTop: '20px',
-        },
+        placement: "topRight",
       });
       
       if (onUpdateSuccess) {
         onUpdateSuccess();
       }
     } catch (error) {
-      console.error("Update error:", error);
-      message.error({
-        content: "❌ Có lỗi xảy ra khi cập nhật sản phẩm",
+      console.error("❌ Update error:", error);
+      message.error("❌ Có lỗi xảy ra khi cập nhật sản phẩm");
+      
+      // Thêm notification error
+      notification.error({
+        message: "Cập nhật thất bại!",
+        description: "Có lỗi xảy ra khi cập nhật sản phẩm. Vui lòng thử lại.",
         duration: 4,
-        style: {
-          marginTop: '20px',
-        },
+        placement: "topRight",
       });
     } finally {
       setIsUpdating(false);
