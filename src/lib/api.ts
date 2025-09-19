@@ -101,7 +101,10 @@ export async function toggleProductFavorite(
  * Cập nhật danh sách sản phẩm từ webhook
  * @returns Promise<{success: boolean, message: string}> - Kết quả và message từ server
  */
-export async function updateProducts(): Promise<{success: boolean, message: string}> {
+export async function updateProducts(): Promise<{
+  success: boolean;
+  message: string;
+}> {
   try {
     const webhookUrl = process.env.NEXT_PUBLIC_WEBHOOK_URL;
     const basicAuth = process.env.NEXT_PUBLIC_WEBHOOK_BASIC_AUTH;
