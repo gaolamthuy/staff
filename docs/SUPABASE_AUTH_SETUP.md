@@ -84,7 +84,7 @@ await supabase.auth.signOut();
 
 ### Tạo User (Admin)
 
-1. **Supabase Dashboard**: https://supabase.com/dashboard/project/your-project-id/auth/users
+1. **Supabase Dashboard**: Go to your Supabase project dashboard → Authentication → Users
 2. **Add User**: Click "Add user" button
 3. **Email/Password**: Nhập email và password cho user
 4. **Confirm**: User sẽ có thể đăng nhập ngay

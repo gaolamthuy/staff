@@ -49,7 +49,7 @@ Tạo file `.env.local` và cấu hình các biến môi trường:
 NEXT_PUBLIC_API_URL=your_api_url_here
 
 # Webhook Configuration (Required for print functionality)
-NEXT_PUBLIC_WEBHOOK_URL=https://n8n.gaolamthuy.vn/webhook
+NEXT_PUBLIC_WEBHOOK_URL=your-webhook-url
 ```
 
 ### Bước 4: Chạy development server

@@ -39,8 +39,8 @@ Tạo file `.env.local` với các biến sau:
 # API Configuration
 NEXT_PUBLIC_API_URL=your_api_url_here
 
-# Webhook Configuration (Ẩn trong code)
-NEXT_PUBLIC_WEBHOOK_URL=https://n8n.gaolamthuy.vn/webhook
+# Webhook Configuration
+NEXT_PUBLIC_WEBHOOK_URL=your_webhook_url_here
 ```
 
 ## 🚀 Cách chạy Development

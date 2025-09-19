@@ -2,10 +2,10 @@
 
 ## Environment Variables
 
-Copy `.env.local.example` to `.env.local` and fill in your actual values:
+Copy `.env.example` to `.env.local` and fill in your actual values:
 
 ```bash
-cp .env.local.example .env.local
+cp .env.example .env.local
 ```
 
 ### Required Variables
@@ -27,7 +27,7 @@ NEXT_PUBLIC_WEBHOOK_URL=your-webhook-url
 ## Security Notes
 
 - ⚠️ **Never commit `.env.local`** - it contains sensitive data
-- ✅ **Use `.env.local.example`** for documentation
+- ✅ **Use `.env.example`** for documentation
 - ✅ **Add `.env.local` to `.gitignore`** (already done)
 
 ## Development

@@ -23,7 +23,7 @@ interface ApiResponse {
 
 ### 2. Print Label API
 
-**Endpoint**: `POST ${NEXT_PUBLIC_WEBHOOK_URL}`
+**Endpoint**: `POST ${WEBHOOK_URL}`
 
 **Description**: Tạo URL để in tem sản phẩm
 
@@ -120,9 +120,9 @@ class ApiError extends Error {
 
 Các URL nhạy cảm được ẩn trong environment variables:
 
-- `NEXT_PUBLIC_SUPABASE_URL`: URL Supabase project
+- `NEXT_PUBLIC_SUPABASE_URL`: Supabase project URL
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Supabase anonymous key
-- `NEXT_PUBLIC_WEBHOOK_URL`: URL webhook in tem
+- `NEXT_PUBLIC_WEBHOOK_URL`: Webhook URL for printing
 
 ### Validation
 
