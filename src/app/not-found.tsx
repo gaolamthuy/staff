@@ -5,7 +5,7 @@
 
 import React from "react";
 import { Result, Button } from "antd";
-import { HomeOutlined, ReloadOutlined } from "@ant-design/icons";
+import { HomeOutlined } from "@ant-design/icons";
 import Link from "next/link";
 
 export default function NotFound() {
@@ -29,13 +29,6 @@ export default function NotFound() {
               Về trang chủ
             </Button>
           </Link>,
-          <Button
-            key="reload"
-            icon={<ReloadOutlined />}
-            onClick={() => window.location.reload()}
-          >
-            Tải lại trang
-          </Button>,
         ]}
       />
     </div>
