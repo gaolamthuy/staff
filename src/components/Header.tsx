@@ -43,16 +43,31 @@ export const Header: React.FC = () => {
           style={{ display: "flex", alignItems: "center" }}
         >
           <div style={{ fontSize: "32px", marginRight: "12px" }}>🌾</div>
-          <h1
-            style={{
-              margin: 0,
-              fontSize: "24px",
-              fontWeight: "bold",
-              color: "#1890ff",
-            }}
-          >
-            Gạo Lâm Thúy
-          </h1>
+          <div>
+            <h1
+              style={{
+                margin: 0,
+                fontSize: "24px",
+                fontWeight: "bold",
+                color: "#1890ff",
+                lineHeight: "1.2",
+              }}
+            >
+              Gạo Lâm Thúy
+            </h1>
+            <p
+              style={{
+                margin: 0,
+                fontSize: "12px",
+                fontWeight: "500",
+                color: "#666",
+                lineHeight: "1",
+                marginTop: "2px",
+              }}
+            >
+              Staff Portal
+            </p>
+          </div>
         </div>
         <div style={{ width: "40px", height: "40px" }} />
       </header>
@@ -109,16 +124,31 @@ export const Header: React.FC = () => {
             alt="Logo Gạo Lâm Thúy"
             style={{ height: 40, marginRight: 12 }}
           />
-          <h1
-            style={{
-              margin: 0,
-              fontSize: "24px",
-              fontWeight: "bold",
-              color: "#1890ff",
-            }}
-          >
-            Gạo Lâm Thúy
-          </h1>
+          <div>
+            <h1
+              style={{
+                margin: 0,
+                fontSize: "24px",
+                fontWeight: "bold",
+                color: "#1890ff",
+                lineHeight: "1.2",
+              }}
+            >
+              Gạo Lâm Thúy
+            </h1>
+            <p
+              style={{
+                margin: 0,
+                fontSize: "12px",
+                fontWeight: "500",
+                color: "#666",
+                lineHeight: "1",
+                marginTop: "2px",
+              }}
+            >
+              Staff Portal
+            </p>
+          </div>
         </a>
       </div>
 

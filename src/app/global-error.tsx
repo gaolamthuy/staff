@@ -23,47 +23,59 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
     error.message.includes("Loading chunk");
 
   return (
-    <html>
-      <body>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: "100vh",
-            padding: "24px",
-          }}
-        >
-          <Result
-            status={isChunkError ? "warning" : "error"}
-            title={isChunkError ? "Lỗi tải trang" : "Có lỗi xảy ra"}
-            subTitle={
-              isChunkError
-                ? "Đang tải lại trang để khắc phục lỗi..."
-                : "Vui lòng thử lại hoặc liên hệ hỗ trợ"
-            }
-            extra={[
-              <Button
-                key="reload"
-                type="primary"
-                icon={<ReloadOutlined />}
-                onClick={() => {
-                  if (isChunkError) {
-                    window.location.reload();
-                  } else {
-                    reset();
-                  }
-                }}
-              >
-                {isChunkError ? "Tải lại trang" : "Thử lại"}
-              </Button>,
-              <Link key="home" href="/">
-                <Button icon={<HomeOutlined />}>Về trang chủ</Button>
-              </Link>,
-            ]}
-          />
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        padding: "24px",
+      }}
+    >
+      <div style={{ textAlign: "center" }}>
+        <h1 style={{ color: "#ff4d4f", marginBottom: "16px" }}>
+          {isChunkError ? "Lỗi tải trang" : "Có lỗi xảy ra"}
+        </h1>
+        <p style={{ color: "#666", marginBottom: "24px" }}>
+          {isChunkError
+            ? "Đang tải lại trang để khắc phục lỗi..."
+            : "Vui lòng thử lại hoặc liên hệ hỗ trợ"}
+        </p>
+        <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
+          <button
+            style={{
+              padding: "8px 16px",
+              backgroundColor: "#1890ff",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              if (isChunkError) {
+                window.location.reload();
+              } else {
+                reset();
+              }
+            }}
+          >
+            {isChunkError ? "Tải lại trang" : "Thử lại"}
+          </button>
+          <a
+            href="/"
+            style={{
+              padding: "8px 16px",
+              backgroundColor: "#f5f5f5",
+              color: "#666",
+              textDecoration: "none",
+              borderRadius: "4px",
+              border: "1px solid #d9d9d9",
+            }}
+          >
+            Về trang chủ
+          </a>
         </div>
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }

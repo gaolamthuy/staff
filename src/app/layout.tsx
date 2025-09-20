@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 import "@/lib/suppress-warnings"; // Import warning suppression first
 import { ErrorBoundary } from "@/components/ErrorBoundary";
@@ -8,7 +8,11 @@ import { Header } from "@/components/Header";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AuthRedirect } from "@/components/AuthRedirect";
 
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({
+  subsets: ["latin", "vietnamese"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Gạo Lâm Thúy - Staff Portal",
@@ -85,7 +89,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={nunito.className} suppressHydrationWarning>
         <ErrorBoundary>
           <AuthProvider>
             <AuthRedirect />
