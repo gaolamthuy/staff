@@ -67,7 +67,7 @@ export function createPrintLabelUrl(code: string, quantity: number): string {
     );
   }
 
-  return `${webhookUrl}?printType=label&code=${encodeURIComponent(
+  return `${webhookUrl}?printType=label-product&code=${encodeURIComponent(
     code
   )}&quantity=${quantity}`;
 }
